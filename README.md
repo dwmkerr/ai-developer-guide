@@ -4,7 +4,11 @@ A set of standards, patterns and principles for development projects. Use with A
 
 ## Quickstart
 
-Download the current developer guide into a folder called `developer-guide` in your current working directory like so:
+The quickest way to let colleagues or AI agents know to use the developer guide is to use this prompt:
+
+> When we work on the codebase together your MUST follow the developer guide available at https://github.com/dwmkerr/developer-guide and follow the instructions in `docs/CONTRIBUTING.md`.
+
+To download your own copy of the guide to work on and edit run the script below, which will copy the files into a `developer-guide` folder in the current directory:
 
 ```bash
 mkdir -p developer-guide
