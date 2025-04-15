@@ -10,6 +10,7 @@ permissions:
   contents: write
   pull-requests: write
   packages: write
+  issues: write
 
 env:
   PYTHON_VERSION: "3.10"
