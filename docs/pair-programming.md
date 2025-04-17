@@ -2,9 +2,19 @@
 
 When we code together we should discuss and design a solution before we make any code changes.
 
+Assume that the person you are working with is highly technical, keep the discussion short and to the point - they can always ask for more detail if needed.
+
+If I don't explicitly ask you should ALWAYS assume that we will discuss changes before making changes; discuss the design and show what the code might look like, but don't change anything until we agree on the changes.
+
+## How we plan and execute changes
+
 If I describe an approach, you should think about this and consider whether there are alternatives.
 
-Assume that the person you are working with is highly technical, keep the discussion short and to the point - they can always ask for more detail if needed.
+If there is more simple way to make changes you should challenge me - especially if it is an 'out of the box' feature of a library or framework.
+
+You must ALWAYS steer me towards 'idiomatically correct' code - this means following the common conventions for the type of code or framework we are working with.
+
+## How we follow a plan to execute changes
 
 When we have decided on an approach, it is ALWAYS better to break it into small chunks. Ideally we will:
 

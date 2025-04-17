@@ -10,6 +10,7 @@ We MUST follow this guide. If there are circumstances when this is not possible,
 - [Comments](#comments)
 - [Shell Scripts](#shell-scripts)
 - [Makefiles](#makefiles)
+- [Makefile Pattern](#makefile-pattern)
 - [Python Code](#python-code)
 - [Project Structure and Mono Repo Best Practices](#project-structure-and-mono-repo-best-practices)
 - [Infrastructure](#infrastructure)
@@ -51,6 +52,12 @@ Note that we don't need every project to follow this exact structure, but this s
 Good examples of READMEs:
 
 - A readme for a CLI application - focused on helping the user understand the tool quickly: https://github.com/dwmkerr/terminal-ai/blob/main/README.md
+
+Prefer a `docs` folder for more detailed documentation such as configuration guides, installation guides and advanced features.
+
+Websites generated from Markdown documentation should be used for complex projects, here are two good examples:
+
+- https://www.tensorzero.com/docs/
 
 ## Comments
 
@@ -102,6 +109,20 @@ fi
 
 ## Makefiles
 
+## Makefile Pattern
+
+We use makefiles throughout the project to standardize workflows across different platforms. This gives:
+
+- **Consistency**: Common interface across all components regardless of underlying technology
+- **Simplicity**: Hide platform-specific commands (npm, pip, etc.) behind standard targets
+
+We have:
+
+1. **Service-level Makefiles**: Each service has its own makefile with common targets (`setup`, `dev`, `clean`)
+2. **Project-level Makefile**: Root makefile uses Docker Compose to orchestrate all services
+
+You can always run `make help` for instructions on what recipes are available.
+
 Makefiles are not the same as shell scripts. We don't use color, we limit to a few lines only, we rarely check variables. In general, anything that is complex can be passed to a shell script.
 
 Makefiles ALWAYS have a `.PHONY` and a default `help` recipe. `.PHONY` always comes before the recipe name. Each recipe is documented with a one line comment like so:
@@ -148,6 +169,43 @@ Project SHOULD have a `makefile` with recipes:
 - `deploy`: deploy the code (optional)
 
 Organise code in a `src` directory, tests in a separate `tests` directory.
+
+**Requirements**
+
+To track requirements for development only dependencies, create a `requirements-dev.txt` file which includes `requirements.txt`:
+
+```txt
+-r requirements.txt # include regular requirements
+pytest==8.3.5 # testing library only needed in dev mode
+```
+
+We SHOULD pin requirement version numbers to ensure deterministic resolution of dependencies.
+
+We SHOULD put a comment after each requirement briefly stating what it is for - some developers will be unfamiliar even with common requirements.
+
+**Exception Handling**
+
+There must be exception handling at the 'domain boundary' level. This means that in Python code when we are handling a request we are in the domain of our code, but an exception must be exposed _outside_ of the domain as an HTTP status code. So HTTP handlers must catch and transform exceptions. For a CLI app, the domain is the internal code and its boundary is where we translate and show output in `stderr`, `stdout` and with a status code. We must always have exception handlers in boundaries like this; but remember many libraries will have basic handling of this already.
+
+When we do our own exception handling, it is to make sure that we provide additional context and diagnostic information. It is NOT to make it 'appear' like our code has worked. See these examples:
+
+```python
+# This is very bad. Our exception handler provides log information, but masks the fact
+# to the caller that our database call failed. We should fail and find the root cause.
+try:
+    # Load database data...
+except Exception as e:
+    logger.error(f"Error loading YAML database: {str(e)}")
+    # Return a minimal valid structure (VERY BAD - DO NOT DO THIS)
+    return {"books": [], "library": []}
+
+# This is good. We provide some logging, and raise a new exception with more context.
+except Exception as e:
+  logger.error(f"Error loading YAML database: {str(e)}")
+  raise RuntimeError(f"Failed to load database: {str(e)}")
+```
+
+Remember; in many cases it is OK to not catch exceptions. For example if an HTTP handler loads a file then we don't need to catch file exceptions, if the file is missing then the HTTP handler domain boundary exception handler will catch the exception and log it - file not found errors will be clear from the logs. Catch exceptions when we can provide useful and meaningful context.
 
 Excellent example projects.
 
