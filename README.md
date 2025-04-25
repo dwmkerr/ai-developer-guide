@@ -1,4 +1,6 @@
-# developer-guide
+# ai-developer-guide
+
+[![All Contributors](https://img.shields.io/github/all-contributors/dwmkerr/ai-developer-guide?color=ee8449&style=flat-square)](#contributors)
 
 A set of standards, patterns and principles for development projects. Use with AI and your development team, evolve for your needs.
 
@@ -11,6 +13,7 @@ A set of standards, patterns and principles for development projects. Use with A
 - [What's in a Guide?](#whats-in-a-guide)
 - [What about project specific stuff?](#what-about-project-specific-stuff)
 - [Build Your Own Guides!](#build-your-own-guides)
+- [Contributors](#contributors)
 
 <!-- vim-markdown-toc -->
 
@@ -89,3 +92,14 @@ Increasingly, tools are allowing you to create local instructions for AI. A good
 ## Build Your Own Guides!
 
 Please fork, contribute or suggest changes! This is very much work in progress and evolving as I start to use this on my own open source projects.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
