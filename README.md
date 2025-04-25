@@ -1,4 +1,7 @@
 # developer-guide
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A set of standards, patterns and principles for development projects. Use with AI and your development team, evolve for your needs.
 
@@ -89,3 +92,25 @@ Increasingly, tools are allowing you to create local instructions for AI. A good
 ## Build Your Own Guides!
 
 Please fork, contribute or suggest changes! This is very much work in progress and evolving as I start to use this on my own open source projects.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gerrit-schoettler-qb"><img src="https://avatars.githubusercontent.com/u/91087829?v=4?s=100" width="100px;" alt="Gerrit Schoettler"/><br /><sub><b>Gerrit Schoettler</b></sub></a><br /><a href="https://github.com/dwmkerr/developer-guide/commits?author=gerrit-schoettler-qb" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
