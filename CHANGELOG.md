@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.0...v0.2.0) (2025-05-10)
+
+
+### Features
+
+* **docs:** do not make assumptions/put in placeholders ([#9](https://github.com/dwmkerr/ai-developer-guide/issues/9)) ([3cf9bd7](https://github.com/dwmkerr/ai-developer-guide/commit/3cf9bd76f4cdfe904549033b74a62257a3fb8ebe))
+
 ## [0.1.0](https://github.com/dwmkerr/ai-developer-guide/compare/v0.0.1...v0.1.0) (2025-05-08)
 
 
