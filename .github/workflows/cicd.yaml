@@ -17,6 +17,18 @@ env:
   NODE_LTS_VERSION: "22.x"
 
 jobs:
+  markdown-link-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          folder-path: '.'
+          config-file: '.github/markdown-link-check-config.json'
+          
   release:
     runs-on: ubuntu-24.04
     outputs:
