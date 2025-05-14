@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  markdown-link-check:
+  check-markdown:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +35,13 @@ jobs:
           use-verbose-mode: 'yes'
           folder-path: '.'
           config-file: '.github/markdown-link-check-config.json'
+  check-tokens:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Tokens
+        run: |
+          make check-tokens
 
   build-site:
     runs-on: ubuntu-24.04
@@ -56,7 +63,7 @@ jobs:
           path: site
           
   release:
-    needs: [markdown-link-check, build-site]
+    needs: [check-markdown, check-markdown]
     runs-on: ubuntu-24.04
     outputs:
       released: ${{ steps.release-please.outputs.release_created }}

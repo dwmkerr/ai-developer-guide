@@ -2,6 +2,7 @@
 """
 Script to convert markdown guide files to JSON for API consumption.
 Generates a main guide.json file and individual guide endpoints.
+Also generates an MCP manifest file from a template.
 """
 
 import json
@@ -195,11 +196,63 @@ def create_guide_json(readme_path, output_dir):
     
     print("Successfully generated JSON API files.")
     
+    # Generate MCP manifest from template
+    generate_mcp_manifest(project_dir, output_dir, generated_guides)
+    
     # List all created files for verification
     print(f"\nGenerated files in {output_dir}:")
     for root, dirs, files in os.walk(output_dir):
         for file in files:
             print(f"  - {os.path.relpath(os.path.join(root, file), output_dir)}")
+
+def generate_mcp_manifest(project_dir, output_dir, generated_guides):
+    """Generate MCP manifest.json from template."""
+    template_path = os.path.join(project_dir, "mcp", "manifest.template.json")
+    output_path = os.path.join(output_dir, "manifest.json")
+    
+    try:
+        # Read the template
+        with open(template_path, 'r', encoding='utf-8') as f:
+            template_content = f.read()
+            
+        # Remove any comments (lines starting with //)
+        template_content = re.sub(r'\s+//.*$', '', template_content, flags=re.MULTILINE)
+            
+        # Parse the template JSON
+        manifest = json.loads(template_content)
+        
+        # Start with the main guide endpoint (already in template)
+        endpoints = [endpoint for endpoint in manifest.get("endpoints", []) 
+                    if endpoint.get("name") == "main_guide"]
+        
+        # Group guides by type for better organization
+        guides_by_type = {}
+        for guide in generated_guides:
+            guide_type = guide["type"]
+            if guide_type not in guides_by_type:
+                guides_by_type[guide_type] = []
+            guides_by_type[guide_type].append(guide)
+        
+        # Add endpoints for each specialized guide
+        for guide_type, guides in guides_by_type.items():
+            type_label = guide_type.capitalize()
+            for guide in guides:
+                endpoint = {
+                    "name": guide["path"].split("/")[-1].replace(".json", ""),
+                    "description": f"{type_label} guide for {guide['name']}",
+                    "path": f"/{guide['path']}"  # Add leading slash for MCP standard
+                }
+                endpoints.append(endpoint)
+        
+        # Update the manifest with all endpoints
+        manifest["endpoints"] = endpoints
+        
+        # Write the final manifest
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(manifest, f, indent=2)
+            print(f"✓ Created manifest.json")
+    except Exception as e:
+        print(f"Error generating MCP manifest: {e}")
 
 def create_index_html(output_dir, generated_guides):
     """Create the index.html file with links to all guides."""
