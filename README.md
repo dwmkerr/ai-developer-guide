@@ -120,6 +120,8 @@ After completing an implementation, ALWAYS stop and wait for explicit direction.
 
 NEVER make assumptions on how to make change better than we have discussed, for example if we planned to setup nginx as a reverse proxy, don't also set config you believe to be better, such as gzip, instead in the 'review' phase propose that gzip config should be added, and why. We will then discuss in the next 'planning' phase.
 
+If you implement and then test if the test fails for a trivial reason it is OK to fix, but if a substantial change is required that goes beyond what we planned, you MUST not make the change but instead discuss the issue and proposed solution in the "Review" phase.
+
 ### Phase 3: Review
 
 Review the implemented changes. Discuss any issues, unexpected side effects, or improvement ideas. Share quick suggestions for what we should do next.
