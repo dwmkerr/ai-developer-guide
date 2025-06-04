@@ -55,15 +55,15 @@ jobs:
 
       - name: Build Site
         run: |
-          make site
+          make site-build
           
       - name: Upload Site Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site-build
+          path: site
           
   release:
-    needs: [check-markdown, check-markdown]
+    needs: [check-markdown, check-tokens, build-site]
     runs-on: ubuntu-24.04
     outputs:
       released: ${{ steps.release-please.outputs.release_created }}
@@ -76,7 +76,7 @@ jobs:
           config-file: .github/release-please-config.json
 
   deploy-site:
-    needs: release
+    needs: [release, build-site]
     if: ${{ needs.release.outputs.released }}
     runs-on: ubuntu-24.04
     environment:

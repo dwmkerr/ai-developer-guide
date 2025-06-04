@@ -2,7 +2,7 @@
 """
 Script to convert markdown guide files to JSON for API consumption.
 Generates a main guide.json file and individual guide endpoints.
-Also generates an MCP manifest file from a template.
+Creates a simple API index and shields.io version badge.
 """
 
 import json
@@ -10,6 +10,16 @@ import os
 import re
 import sys
 from datetime import datetime
+
+def read_version(project_dir):
+    """Read version from version.txt file."""
+    version_file = os.path.join(project_dir, "version.txt")
+    try:
+        with open(version_file, 'r', encoding='utf-8') as f:
+            return f.read().strip()
+    except Exception as e:
+        print(f"Warning: Could not read version from {version_file}: {e}")
+        return "0.1.0"  # fallback version
 
 def extract_references(content, base_url="api/guides"):
     """
@@ -154,7 +164,7 @@ def create_guide_json(readme_path, output_dir):
                 "metadata": {
                     "name": guide_data["title"],
                     "type": guide_type,
-                    "version": "0.1.0",
+                    "version": read_version(project_dir),
                     "lastUpdated": datetime.now().strftime("%Y-%m-%d"),
                     "source": f"https://github.com/dwmkerr/ai-developer-guide/docs/guides/{filename}"
                 },
@@ -177,7 +187,7 @@ def create_guide_json(readme_path, output_dir):
     guide_data = {
         "metadata": {
             "name": "AI Developer Guide",
-            "version": "0.1.0",
+            "version": read_version(project_dir),
             "lastUpdated": datetime.now().strftime("%Y-%m-%d"),
             "source": "https://github.com/dwmkerr/ai-developer-guide"
         },
@@ -192,12 +202,15 @@ def create_guide_json(readme_path, output_dir):
         print(f"✓ Created api/guide.json")
     
     # Create index.html with links to all guides
-    create_index_html(output_dir, generated_guides)
+    create_index_html(output_dir, generated_guides, project_dir)
+    
+    # Generate API index
+    generate_api_index(project_dir, output_dir, generated_guides)
+    
+    # Create version badge for shields.io
+    create_version_badge(output_dir, project_dir)
     
     print("Successfully generated JSON API files.")
-    
-    # Generate MCP manifest from template
-    generate_mcp_manifest(project_dir, output_dir, generated_guides)
     
     # List all created files for verification
     print(f"\nGenerated files in {output_dir}:")
@@ -205,61 +218,11 @@ def create_guide_json(readme_path, output_dir):
         for file in files:
             print(f"  - {os.path.relpath(os.path.join(root, file), output_dir)}")
 
-def generate_mcp_manifest(project_dir, output_dir, generated_guides):
-    """Generate MCP manifest.json from template."""
-    template_path = os.path.join(project_dir, "mcp", "manifest.template.json")
-    output_path = os.path.join(output_dir, "manifest.json")
+def create_index_html(output_dir, generated_guides, project_dir):
+    """Create a simple index.html file for the AI Developer Guide API."""
     
-    try:
-        # Read the template
-        with open(template_path, 'r', encoding='utf-8') as f:
-            template_content = f.read()
-            
-        # Remove any comments (lines starting with //)
-        template_content = re.sub(r'\s+//.*$', '', template_content, flags=re.MULTILINE)
-            
-        # Parse the template JSON
-        manifest = json.loads(template_content)
-        
-        # Start with the main guide endpoint (already in template)
-        endpoints = [endpoint for endpoint in manifest.get("endpoints", []) 
-                    if endpoint.get("name") == "main_guide"]
-        
-        # Group guides by type for better organization
-        guides_by_type = {}
-        for guide in generated_guides:
-            guide_type = guide["type"]
-            if guide_type not in guides_by_type:
-                guides_by_type[guide_type] = []
-            guides_by_type[guide_type].append(guide)
-        
-        # Add endpoints for each specialized guide
-        for guide_type, guides in guides_by_type.items():
-            type_label = guide_type.capitalize()
-            for guide in guides:
-                endpoint = {
-                    "name": guide["path"].split("/")[-1].replace(".json", ""),
-                    "description": f"{type_label} guide for {guide['name']}",
-                    "path": f"/{guide['path']}"  # Add leading slash for MCP standard
-                }
-                endpoints.append(endpoint)
-        
-        # Update the manifest with all endpoints
-        manifest["endpoints"] = endpoints
-        
-        # Write the final manifest
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump(manifest, f, indent=2)
-            print("✓ Created manifest.json")
-            
-        print("\n📄 Manifest file created at: {}".format(output_path))
-        print("   This file is used by MCP servers to define available endpoints.\n")
-        
-    except Exception as e:
-        print(f"Error generating MCP manifest: {e}")
-
-def create_index_html(output_dir, generated_guides):
-    """Create the index.html file with links to all guides and manifest file."""
+    # Read version for display
+    version = read_version(project_dir)
     
     # Group guides by type for the index page
     guides_by_type = {}
@@ -276,9 +239,9 @@ def create_index_html(output_dir, generated_guides):
     # First add the manifest file
     resource_table_rows += """
     <tr>
-        <td>Manifest</td>
-        <td><a href="manifest.json">manifest.json</a></td>
-        <td>MCP Server Manifest</td>
+        <td>API Index</td>
+        <td><a href="api.json">api.json</a></td>
+        <td>API endpoint directory</td>
     </tr>
     """
     
@@ -310,51 +273,85 @@ def create_index_html(output_dir, generated_guides):
     </tr>
     """
     
-    # Create the HTML content with relative paths for local use
+    # Create the HTML content - much simpler and cleaner
     index_html = f"""<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Developer Guide API</title>
-    <style>
-        body {{ font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }}
-        h1, h2, h3 {{ color: #333; }}
-        a {{ color: #0366d6; text-decoration: none; }}
-        a:hover {{ text-decoration: underline; }}
-        code {{ background-color: #f6f8fa; padding: 3px 5px; border-radius: 3px; }}
-        table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-        th {{ background-color: #f6f8fa; text-align: left; padding: 10px; }}
-        td {{ border-bottom: 1px solid #eee; padding: 10px; }}
-        .card {{ background-color: #f6f8fa; padding: 15px; border-radius: 5px; margin: 20px 0; }}
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <h1>AI Developer Guide API</h1>
-    <p>This is the JSON API for the AI Developer Guide.</p>
-    
-    <div class="card">
-        <h2>Manifest File</h2>
-        <p>The <a href="manifest.json">manifest.json</a> file is used by MCP (Model Context Protocol) servers to define available endpoints.</p>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="https://github.com/dwmkerr/ai-developer-guide">
+                AI Developer Guide API
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text me-3">
+                    Version {version}
+                </span>
+                <a class="btn btn-outline-light btn-sm" href="https://github.com/dwmkerr/ai-developer-guide">
+                    <i class="bi bi-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>AI Developer Guide API</h1>
+                <p class="lead">JSON API providing standards, patterns and principles for effective AI-assisted development.</p>
+                
+                <div class="alert alert-info">
+                    <h5>For LLMs: Start with the main guide</h5>
+                    <p>Always read <a href="api/guide.json" class="alert-link">api/guide.json</a> first. It contains the core Plan/Implement/Review approach. 
+                    Load specific guides as needed for languages, patterns, or platforms.</p>
+                </div>
+
+                <h2>Available Endpoints</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Type</th>
+                                <th>Resource</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {resource_table_rows}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Quick API Reference</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Main Guide</h6>
+                        <code>GET /api/guide.json</code>
+                        
+                        <h6 class="mt-3">Language Guides</h6>
+                        <code>GET /api/guides/languages/python.json</code><br>
+                        <code>GET /api/guides/languages/shell-scripts.json</code>
+                        
+                        <h6 class="mt-3">Pattern Guides</h6>
+                        <code>GET /api/guides/patterns/make.json</code>
+                        
+                        <h6 class="mt-3">Platform Guides</h6>
+                        <code>GET /api/guides/platforms/postgresql.json</code>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <h2>Available Resources</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Type</th>
-                <th>Resource</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {resource_table_rows}
-        </tbody>
-    </table>
-    
-    <h2>Usage with MCP</h2>
-    <p>To use with Model Context Protocol:</p>
-    <pre><code>GET api/guide.json                      // Get the complete developer guide
-GET api/guides/languages/python.json    // Example of a specialized guide
-GET manifest.json                       // Get the MCP server manifest</code></pre>
 </body>
 </html>"""
 
@@ -362,6 +359,70 @@ GET manifest.json                       // Get the MCP server manifest</code></p
     with open(index_html_path, 'w', encoding='utf-8') as f:
         f.write(index_html)
         print(f"✓ Created index.html")
+
+def create_version_badge(output_dir, project_dir):
+    """Create a shields.io compatible version badge JSON file."""
+    version = read_version(project_dir)
+    
+    badge_data = {
+        "schemaVersion": 1,
+        "label": "version",
+        "message": version,
+        "color": "blue"
+    }
+    
+    badge_path = os.path.join(output_dir, "version-badge.json")
+    with open(badge_path, 'w', encoding='utf-8') as f:
+        json.dump(badge_data, f, indent=2)
+        print(f"✓ Created version-badge.json")
+
+def generate_api_index(project_dir, output_dir, generated_guides):
+    """Generate a simple API index file."""
+    output_path = os.path.join(output_dir, "api.json")
+    
+    try:
+        # Read version
+        version = read_version(project_dir)
+        
+        # Create a simple API index
+        api_index = {
+            "name": "AI Developer Guide API",
+            "description": "JSON API providing standards, patterns and principles for effective AI-assisted development",
+            "version": version,
+            "source": "https://github.com/dwmkerr/ai-developer-guide",
+            "lastUpdated": datetime.now().strftime("%Y-%m-%d"),
+            "endpoints": {
+                "main_guide": {
+                    "path": "/api/guide.json",
+                    "description": "Complete AI Developer Guide with core rules and Plan/Implement/Review approach"
+                }
+            }
+        }
+        
+        # Group guides by type
+        guides_by_type = {}
+        for guide in generated_guides:
+            guide_type = guide["type"]
+            if guide_type not in guides_by_type:
+                guides_by_type[guide_type] = {}
+            
+            guide_name = guide["path"].split("/")[-1].replace(".json", "")
+            guides_by_type[guide_type][guide_name] = {
+                "path": f"/{guide['path']}",
+                "description": f"{guide['name']} guide"
+            }
+        
+        # Add specialized guides to endpoints
+        for guide_type, guides in guides_by_type.items():
+            api_index["endpoints"][f"{guide_type}_guides"] = guides
+        
+        # Write the API index
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(api_index, f, indent=2)
+            print("✓ Created api.json")
+            
+    except Exception as e:
+        print(f"Error generating API index: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

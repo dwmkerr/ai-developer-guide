@@ -3,6 +3,9 @@
   <h2 align="center"><code>🧠 The AI Developer Guide</code></h2>
   <h3 align="center">Empower your AI with standards, patterns and principles for sane, effective and maintainable development.</h3>
   <p align="center">
+    <img src="https://img.shields.io/endpoint?url=https://dwmkerr.github.io/ai-developer-guide/version-badge.json" alt="Version" />
+  </p>
+  <p align="center">
     <a href="#quickstart">Quickstart</a> |
     <a href="#the-golden-rules">The Golden Rules</a> |
     <a href="#the-developer-guide">The Developer Guide</a> |

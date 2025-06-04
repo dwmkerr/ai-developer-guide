@@ -15,10 +15,11 @@ check-tokens: # check the tokens in each file used by AI
 
 .PHONY: site-build
 site-build: # build the the MCP server site
+	mkdir -p ./site
 	python .github/scripts/generate_json.py README.md ./site
 
 .PHONY: site-run
-site-run: # run a simple HTTP server for the site
+site-run: site-build # run a simple HTTP server for the site
 	@echo "Starting HTTP server at http://localhost:9090"
 	@echo "Press Ctrl+C to stop the server"
 	python -m http.server --directory ./site 9090
