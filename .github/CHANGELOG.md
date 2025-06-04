@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.1](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.0...v0.1.1) (2025-06-04)
+
+
+### Features
+
+* **docs:** do not make assumptions/put in placeholders ([#9](https://github.com/dwmkerr/ai-developer-guide/issues/9)) ([3cf9bd7](https://github.com/dwmkerr/ai-developer-guide/commit/3cf9bd76f4cdfe904549033b74a62257a3fb8ebe))
+* **docs:** simplifed structure - guide on main README ([5de8af0](https://github.com/dwmkerr/ai-developer-guide/commit/5de8af0333f2520ae62e77880afea99b533a5d25))
+* enhance API site with versioning and improved landing page ([#17](https://github.com/dwmkerr/ai-developer-guide/issues/17)) ([2fa90cd](https://github.com/dwmkerr/ai-developer-guide/commit/2fa90cdcc10234dc120f8aafee6ea8ea843a5208))
+* **implementation:** avoid 'helpful' unexpected changes ([526a377](https://github.com/dwmkerr/ai-developer-guide/commit/526a37712e99bf7ffc214bfaa63790ea6b9d4d6d))
+* mcp ([#13](https://github.com/dwmkerr/ai-developer-guide/issues/13)) ([82b01d2](https://github.com/dwmkerr/ai-developer-guide/commit/82b01d22eea84c9562beeb105f5870570aead22b))
+
+
+### Bug Fixes
+
+* configure release-please to stay on 0.1.x patch versions ([b91f126](https://github.com/dwmkerr/ai-developer-guide/commit/b91f1269c4b8a5a2e5570242592e98218ef802e6))
+
 ## [0.1.0](https://github.com/dwmkerr/ai-developer-guide/compare/v0.0.1...v0.1.0) (2025-05-08)
 
 
