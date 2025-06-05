@@ -5,7 +5,14 @@
   "packages": {
     ".": {
       "release-type": "simple",
-      "changelog-path": ".github/CHANGELOG.md"
+      "changelog-path": ".github/CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "modules/node/package.json",
+          "jsonpath": "$.version"
+        }
+      ]
     }
   }
 }

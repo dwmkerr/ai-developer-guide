@@ -35,6 +35,7 @@ jobs:
           use-verbose-mode: 'yes'
           folder-path: '.'
           config-file: '.github/markdown-link-check-config.json'
+
   check-tokens:
     runs-on: ubuntu-24.04
     steps:
@@ -61,9 +62,66 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
+
+  validate-mcp:
+    name: Validate MCP Server
+    defaults:
+      run:
+        working-directory: ./mcp/ai-developer-guide-mcp
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_LTS_VERSION }}
+
+      - name: Install Dependencies
+        run: make init
+
+      - name: Lint
+        run: make lint
+
+      - name: Build
+        run: make build
+
+      - name: Test with Coverage
+        run: make test
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-build-artifacts
+          path: ./mcp/ai-developer-guide-mcp/artifacts/
+
+  upload-coverage:
+    name: Upload Coverage
+    needs: validate-mcp
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: ./mcp/ai-developer-guide-mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: mcp-build-artifacts
+          path: ./artifacts
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v5
+        with:
+          directory: ./artifacts/coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: mcp-server
           
   release:
-    needs: [check-markdown, check-tokens, build-site]
+    needs: [check-markdown, check-tokens, build-site, validate-mcp]
     runs-on: ubuntu-24.04
     outputs:
       released: ${{ steps.release-please.outputs.release_created }}
@@ -86,3 +144,41 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  release-mcp:
+    name: Release MCP Server to NPM
+    needs: [release]
+    if: ${{ needs.release.outputs.released }}
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: ./mcp/ai-developer-guide-mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node for Release
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_LTS_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Build Distributable
+        run: make build
+
+      - name: Publish to NPM
+        run: |
+          if [ "$NODE_AUTH_TOKEN" == "" ]; then
+            echo "The 'NPM_TOKEN' secret must be set to deploy to NPM"
+            exit 1
+          else
+            echo "Publishing to NPM..."
+            npm publish --access=public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: |
+          npm set //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
+          npm publish --registry https://npm.pkg.github.com
