@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.4...v0.1.5) (2025-06-05)
+
+
+### Bug Fixes
+
+* **build:** fix mcp server build ([6443a6f](https://github.com/dwmkerr/ai-developer-guide/commit/6443a6fe89d79ab2c111bed4560fdc0452d7f4cf))
+
 ## [0.1.4](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.3...v0.1.4) (2025-06-05)
 
 
