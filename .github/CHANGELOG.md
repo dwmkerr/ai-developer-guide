@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.2](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.1...v0.1.2) (2025-06-05)
+
+
+### Features
+
+* **mcp:** ai developer guide mcp server ([#20](https://github.com/dwmkerr/ai-developer-guide/issues/20)) ([e359177](https://github.com/dwmkerr/ai-developer-guide/commit/e359177951b05538188a9f1b1c2daa446b38b9f0))
+
+
+### Bug Fixes
+
+* ignore changelog version comparison links that reference unreleased tags ([2532ec5](https://github.com/dwmkerr/ai-developer-guide/commit/2532ec5d1d6e880d9a00319722ec67649bf04bd5))
+* remove unnecessary attach-assets job ([7b466dc](https://github.com/dwmkerr/ai-developer-guide/commit/7b466dc8454e1e01b70e26e69151ebf095890447))
+
 ## [0.1.1](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.0...v0.1.1) (2025-06-04)
 
 
