@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.3...v0.1.4) (2025-06-05)
+
+
+### Miscellaneous Chores
+
+* release 0.1.4 ([96a645a](https://github.com/dwmkerr/ai-developer-guide/commit/96a645a645efd5009d859e78855b3a460e57842f))
+
 ## [0.1.3](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.2...v0.1.3) (2025-06-05)
 
 
