@@ -1,70 +1,157 @@
 # AI Developer Guide MCP Server
 
-An MCP (Model Context Protocol) server that provides LLMs with access to the AI Developer Guide content, including core development principles and specialized deep dives.
+A simple MCP server that connects your LLM to the developer guide:
 
-## Installation
-
-```bash
-npm install -g @dwmkerr/ai-developer-guide-mcp
 ```
+┌──────────┐  GitHub Action  ┌─────────────────────┐
+│   Repo   │────────────────▶│ Developer Guide     │
+└──────────┘                 │ (GH Pages)          │
+                             └─────────────────────┘
+                                        ▲
+                                        │ JSON APIs
+┌──────────┐       MCP       ┌─────────────────────┐
+│   LLM    │────────────────▶│ AI Dev Guide        │
+└──────────┘                 │ MCP Server          │
+                             └─────────────────────┘
+```
+
+- The developer guide is exposed as a set of JSON files on a server
+- In this case, via GitHub pages
+- These files can be loaded via HTTP GET, which makes them simple APIs
+- The MCP server hits the APIs to get guide content
+
+<!-- vim-markdown-toc GFM -->
+
+- [Quickstart](#quickstart)
+- [Usage](#usage)
+    - [Monitoring and Logging](#monitoring-and-logging)
+- [Available Tools](#available-tools)
+- [Example LLM Interactions](#example-llm-interactions)
+- [Configuration](#configuration)
+- [API Requirements](#api-requirements)
+
+<!-- vim-markdown-toc -->
+
+## Quickstart
+
+Use the following MCP configuration:
+
+```json
+"ai-developer-guide": {
+  "command": "npx",
+  "args": ["-y", "@dwmkerr/ai-developer-guide-mcp"]
+}
+```
+
+Try a prompt like:
+
+> "Read the ai developer guide and tell me what the guiding principles are"
 
 ## Usage
 
-### Start the MCP Server
+Run `make` to see useful commands:
+
+  $ make
+
+  build: Build the code for distribution
+  help: Show help for each of the Makefile recipes
+  init: Install dependencies
+  lint-fix: Lint and fix
+  lint: Lint code
+  start: Build the code for distribution
+  test: Run unit tests and output coverage to artifacts/coverage
+
+Other commands that might be helpfule are:
+
 ```bash
-ai-developer-guide-mcp start
+# Start in live-reload mode.
+npm run dev
+
+# Run tests.
+npm run test
+
+# Check connectivity.
+npm run start -- check
 ```
 
-### Test API Connectivity
-```bash
-ai-developer-guide-mcp test
+To connect to your locally running MCP server:
+
+```json
+"ai-developer-guide-local": {
+  "command": "node",
+  "args": [
+    "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp/dist/cli.js",
+    "start"
+  ],
+  "cwd": "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp"
+}
 ```
 
-### Monitoring and Logging
+## MCP Inspector
 
-The server logs all activity to stderr (standard error) following MCP conventions. This means:
+You can quickly test the MCP server using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
 
-- **When running manually**: Logs appear directly in your terminal
-- **When used with MCP clients**: Logs are captured by the client (e.g., Cursor's MCP console)
-- **No file permissions needed**: No log files to manage or worry about
 
-Logs include timestamps and detailed information about:
-- Server startup and initialization
-- Tool requests (list_tools, fetch_main_guide, etc.)
-- API calls and response times
-- Error messages and debugging information
+```bash
+# Run the latest release of the MCP server:
+npx @modelcontextprotocol/inspector -- npx @dwmkerr/ai-developer-guide-mcp
+# open: http://127.0.0.1:6274
+
+# Or run your locally built version:
+npm run build
+npx @modelcontextprotocol/inspector node ./dist/cli.js
+```
+
+<a href="https://github.com/modelcontextprotocol/inspector"><img src="./docs/mcp-inspector-screenshot.png" width="480" alt="MCP Inspector Screenshot" /></a>
+
+## Logging
+
+The server logs all activity to stderr (standard error) following MCP conventions.
+
+## Available Tools
+
+When connected to an LLM via MCP, the following tools are available:
+
+- **`fetch_main_guide`** - Get the core AI Developer Guide content
+- **`fetch_deep_dive`** - Get specialized guides (Python, Shell Scripts, Make, PostgreSQL, etc.)
+- **`list_available_guides`** - List all available deep dive topics
 
 ## Example LLM Interactions
 
 Once connected to your LLM (like Claude in Cursor), you can ask questions like these:
 
-### **Getting Started**
+**Getting Started**
+
 > "What are the main principles in the AI Developer Guide?"
 
 The LLM will use `fetch_main_guide` to get the core development principles and Plan/Implement/Review approach.
 
-### **Language-Specific Guidance**
+**Language-Specific Guidance**
+
 > "Show me Python best practices for AI-assisted development"
 > 
 > "What are the shell scripting guidelines from the developer guide?"
 
 The LLM will use `fetch_deep_dive` with category `languages` and topics like `python` or `shell-scripts`.
 
-### **Tool and Pattern Guidance**
+**Tool and Pattern Guidance**
+
 > "How should I structure my Makefiles according to the guide?"
 > 
 > "What CI/CD practices does the guide recommend?"
 
 The LLM will fetch guides for `patterns/make` or `others/cicd`.
 
-### **Discovery and Exploration**
+**Discovery and Exploration**
+
 > "What deep dive guides are available?"
 > 
 > "List all the specialized guides you have access to"
 
 The LLM will use `list_available_guides` to show all categories and topics.
 
-### **Practical Scenarios**
+**Practical Scenarios**
+
 > "I'm setting up a new Python project with PostgreSQL. What guidance does the developer guide provide?"
 
 The LLM will fetch multiple guides (`languages/python` and `platforms/postgresql`) to give comprehensive advice.
@@ -75,22 +162,19 @@ The LLM will get the main guide for review principles, then the shell scripts de
 
 ## Configuration
 
-### Custom Base URL
+You can point the server to your own AI Developer Guide deployment:
 
-You can point the server to your own AI Developer Guide deployment in several ways:
-
-**1. Environment Variable (recommended for persistent configuration):**
 ```bash
+# Set the base url via env var:
 export AI_DEVELOPER_GUIDE_URL="https://your-domain.com/your-guide"
 ai-developer-guide-mcp start
-```
 
-**2. Command Line Option:**
-```bash
+# or via a CLI parameter:
 ai-developer-guide-mcp start --base-url "https://your-domain.com/your-guide"
 ```
 
-**3. For Cursor MCP Configuration:**
+You can configure your MCP server using these parameters:
+
 ```json
 {
   "mcpServers": {
@@ -102,67 +186,6 @@ ai-developer-guide-mcp start --base-url "https://your-domain.com/your-guide"
 }
 ```
 
-**Priority order:** Command line option > Environment variable > Default (dwmkerr's GitHub Pages)
-
-### API Requirements
-
-Your custom guide must expose these endpoints:
-- `/api.json` - API index with available guides
-- `/api/guide.json` - Main guide content
-- `/api/guides/{category}/{topic}.json` - Deep dive guides
+## API Requirements
 
 The API structure should match the [AI Developer Guide API format](https://dwmkerr.github.io/ai-developer-guide/api.json).
-
-## Available Tools
-
-When connected to an LLM via MCP, the following tools are available:
-
-- **`fetch_main_guide`** - Get the core AI Developer Guide content
-- **`fetch_deep_dive`** - Get specialized guides (Python, Shell Scripts, Make, PostgreSQL, etc.)
-- **`list_available_guides`** - List all available deep dive topics
-
-## Connecting to Cursor
-
-Add this configuration to your Cursor MCP settings:
-
-```json
-{
-  "mcpServers": {
-    "ai-developer-guide": {
-      "command": "ai-developer-guide-mcp",
-      "args": ["start"]
-    }
-  }
-}
-```
-
-## Development
-
-```bash
-# Install dependencies
-make init
-
-# Build the code
-make build
-
-# Run in development mode
-npm run dev
-
-# Test API connectivity
-npm run dev -- test
-
-# Test with custom URL
-npm run dev -- test --base-url "http://localhost:9090"
-```
-    "ai-developer-guide-local": {
-        "command": "node",
-        "args": [
-          "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp/dist/cli.js",
-          "start"
-        ],
-        "cwd": "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp"
-      },
-
-## License
-
-MIT 

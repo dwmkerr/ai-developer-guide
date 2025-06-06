@@ -8,7 +8,9 @@ This page describes how to set up specific tools and editors, as well as how to 
     - [Visual Studio Code](#visual-studio-code)
     - [Cursor](#cursor)
     - [Claude Code](#claude-code)
-- [Creating Custom or Project Specific Guides](#creating-custom-or-project-specific-guides)
+- [MCP](#mcp)
+- [Extending the Guide or Project Specific Guides](#extending-the-guide-or-project-specific-guides)
+- [Building Your Own Guide](#building-your-own-guide)
 - [Installing Locally](#installing-locally)
 - [Improving the Guide During Development](#improving-the-guide-during-development)
 - [Forking](#forking)
@@ -64,7 +66,28 @@ You MUST follow the rules in this guide.
 EOF
 ```
 
-## Creating Custom or Project Specific Guides
+## MCP
+
+You can use the `@dwmkerr/ai-developer-guide` MCP server to integrate your LLM to the guide:
+
+```json
+{
+  "ai-developer-guide": {
+    "command": "npx",
+    "args": ["-y", "@dwmkerr/ai-developer-guide-mcp"]
+  }
+}
+```
+
+Configuration:
+
+| Parameter    | Usage                                                                    |
+|--------------|--------------------------------------------------------------------------|
+| `--base-url` | Use a custom location for the developer guide, such as your own version. |
+
+For details on how to build the server locally, debug, extend, check the [MCP Server README](../mcp/ai-developer-guide-mcp/README.md).
+
+## Extending the Guide or Project Specific Guides
 
 Create a file in your project directory, point at the developer guide and then extend with your own requirements:
 
@@ -82,6 +105,10 @@ You MUST also follow the rules below which apply to this project:
 ```
 
 Then prompt your AI to read this guide.
+
+## Building Your Own Guide
+
+[Fork](https://github.com/dwmkerr/ai-developer-guide/fork) the guide and adapt to your needs. The code is MIT Licensed.
 
 ## Installing Locally
 
@@ -118,7 +145,6 @@ You may also find it useful to periodically check:
 ```
 Are you still using the AI Developer Guide? How have you used it recently? Would any changes to it have made it more useful or the work we're doing any faster? Would any changes have reduced confusion or misalignment during our conversation?
 ```
-
 
 ## Forking
 

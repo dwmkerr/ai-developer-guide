@@ -22,5 +22,9 @@ test: # Run unit tests and output coverage to artifacts/coverage
 	npm run test
 
 .PHONY: build
+start: # Build the code for distribution
+	npm run start
+
+.PHONY: build
 build: # Build the code for distribution
 	npm run build

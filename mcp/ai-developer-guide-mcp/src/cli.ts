@@ -32,8 +32,8 @@ program
   });
 
 program
-  .command('test')
-  .description('Test API connectivity')
+  .command('check')
+  .description('Check API connectivity')
   .option('--base-url <url>', 'Base URL for the API (default: env AI_DEVELOPER_GUIDE_URL or https://dwmkerr.github.io/ai-developer-guide)')
   .action(async (options) => {
     try {
