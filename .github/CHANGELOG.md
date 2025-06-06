@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.5...v0.1.6) (2025-06-06)
+
+
+### Features
+
+* **mcp:** 'check' to test config ([#24](https://github.com/dwmkerr/ai-developer-guide/issues/24)) ([f597696](https://github.com/dwmkerr/ai-developer-guide/commit/f597696a010743bcf9d23099066c7d2b27dc4098))
+
 ## [0.1.5](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.4...v0.1.5) (2025-06-05)
 
 
