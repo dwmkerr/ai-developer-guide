@@ -87,7 +87,7 @@ Once each phase has been completed we start again at Phase 1 and restart the pro
 
 **Read Detailed Guides As Needed**
 
-When you encounter code or platforms you haven't seen during our session, search this developer guide to see if there are more detailed guides available, then read them. For example, the first time you see Python Code, read the [Python Guide](./docs/guides/python.md).
+When you encounter code or platforms you haven't seen during our session, search this developer guide to see if there are more detailed guides available, then read them. For example, the first time you see Python Code, read the [Python Guide](./guides/python.md).
 
 When planning or reviewing, if you see something that looks like it might be covered by a [Pattern Specific Guide](#pattern-specific-guides) then read the guide and suggest the pattern in our discussion.
 
@@ -257,16 +257,16 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 
 ## Language Specific Guides
 
-- [Makefiles](./docs/guides/make.md)
-- [Python](./docs/guides/python.md)
-- [Shell Scripts](./docs/guides/shell-scripts.md)
+- [Makefiles](./guides/make.md)
+- [Python](./guides/python.md)
+- [Shell Scripts](./guides/shell-scripts.md)
 
 ## Pattern Specific Guides
 
-- [The Makefile Pattern](./docs/guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python backend and NodeJS frontend)
-- [CICD](./docs/guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
+- [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
+- [CICD](./guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
 
 ## Platform Specific Guides
 
-- [PostgreSQL](./docs/guides/postgresql.md)
+- [PostgreSQL](./guides/postgresql.md)
 

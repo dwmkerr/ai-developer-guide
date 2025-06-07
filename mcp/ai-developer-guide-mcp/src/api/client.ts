@@ -55,10 +55,10 @@ export class ApiClient {
     return response.json();
   }
 
-  async fetchDeepDive(category: string, topic: string): Promise<GuideContent> {
+  async fetchGuide(category: string, topic: string): Promise<GuideContent> {
     const response = await fetch(`${this.baseUrl}/api/guides/${category}/${topic}.json`);
     if (!response.ok) {
-      throw new Error(`Failed to fetch deep dive ${category}/${topic}: ${response.statusText}`);
+      throw new Error(`Failed to fetch guide ${category}/${topic}: ${response.statusText}`);
     }
     return response.json();
   }

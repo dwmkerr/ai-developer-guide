@@ -23,8 +23,7 @@ A simple MCP server that connects your LLM to the developer guide:
 <!-- vim-markdown-toc GFM -->
 
 - [Quickstart](#quickstart)
-- [Usage](#usage)
-    - [Monitoring and Logging](#monitoring-and-logging)
+- [Local Development](#local-development)
 - [Available Tools](#available-tools)
 - [Example LLM Interactions](#example-llm-interactions)
 - [Configuration](#configuration)
@@ -47,74 +46,79 @@ Try a prompt like:
 
 > "Read the ai developer guide and tell me what the guiding principles are"
 
-## Usage
+## Local Development
 
 Run `make` to see useful commands:
 
-  $ make
+```
+make
 
-  build: Build the code for distribution
-  help: Show help for each of the Makefile recipes
-  init: Install dependencies
-  lint-fix: Lint and fix
-  lint: Lint code
-  start: Build the code for distribution
-  test: Run unit tests and output coverage to artifacts/coverage
-
-Other commands that might be helpfule are:
-
-```bash
-# Start in live-reload mode.
-npm run dev
-
-# Run tests.
-npm run test
-
-# Check connectivity.
-npm run start -- check
+build: Build the code for distribution
+help: Show help for each of the Makefile recipes
+init: Install dependencies
+...etc
 ```
 
-To connect to your locally running MCP server:
+To test all elements locally you'll need to build the site that serves the APIs, run the site, run the MCP server and point it to the local site, and then configure your MCP client.
+
+First run the site locally:
+
+```bash
+# From repo root run the site, runs on http://localhost:9090
+make site-build && make site-run
+```
+
+Build the server locally:
+
+```bash
+npm run build
+# optionally install locally with npm install -g .
+```
+
+Point your MCP client, such as Cursor or Claude Desktop, to the local server:
 
 ```json
-"ai-developer-guide-local": {
-  "command": "node",
-  "args": [
-    "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp/dist/cli.js",
-    "start"
-  ],
-  "cwd": "/Users/Dave_Kerr/repos/github/dwmkerr/ai-developer-guide/mcp/ai-developer-guide-mcp"
+{
+  "mcpServers": {
+    "ai-developer-guide-local": {
+      "command": "node",
+      "args": ["/path/to/ai-developer-guide/mcp/ai-developer-guide-mcp/dist/cli.js", 
+               "start", "--base-url", "http://localhost:9090"]
+    }
+  }
 }
 ```
 
-## MCP Inspector
+At this point you can prompt the LLM with instructions like:
 
-You can quickly test the MCP server using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
+- "What Python patterns should I follow?"
+- "Show me CI/CD best practices" 
+- "What guides are available?"
 
+You can also run locally with live reload:
 
 ```bash
-# Run the latest release of the MCP server:
-npx @modelcontextprotocol/inspector -- npx @dwmkerr/ai-developer-guide-mcp
-# open: http://127.0.0.1:6274
+npm run dev -- start --base-url http://localhost:9090
+```
 
-# Or run your locally built version:
-npm run build
-npx @modelcontextprotocol/inspector node ./dist/cli.js
+The server logs all activity to `stderr` (standard error) following MCP conventions.
+
+And you can quickly test with the MCP inspector:
+
+```bash
+npx @modelcontextprotocol/inspector node ./dist/cli.js start --base-url http://localhost:9090
+# Or test against production: npx @modelcontextprotocol/inspector -- npx @dwmkerr/ai-developer-guide-mcp
 ```
 
 <a href="https://github.com/modelcontextprotocol/inspector"><img src="./docs/mcp-inspector-screenshot.png" width="480" alt="MCP Inspector Screenshot" /></a>
-
-## Logging
-
-The server logs all activity to stderr (standard error) following MCP conventions.
 
 ## Available Tools
 
 When connected to an LLM via MCP, the following tools are available:
 
 - **`fetch_main_guide`** - Get the core AI Developer Guide content
-- **`fetch_deep_dive`** - Get specialized guides (Python, Shell Scripts, Make, PostgreSQL, etc.)
-- **`list_available_guides`** - List all available deep dive topics
+- **`fetch_guide`** - Get specialized guides (Python, Shell Scripts, Make, PostgreSQL, etc.)
+- **`list_available_guides`** - List all available guide topics
 
 ## Example LLM Interactions
 
@@ -131,22 +135,30 @@ The LLM will use `fetch_main_guide` to get the core development principles and P
 > "Show me Python best practices for AI-assisted development"
 > 
 > "What are the shell scripting guidelines from the developer guide?"
+>
+> "What Python patterns should I follow?"
 
-The LLM will use `fetch_deep_dive` with category `languages` and topics like `python` or `shell-scripts`.
+The LLM will use `fetch_guide` with category `languages` and topics like `python` or `shell-scripts`.
 
 **Tool and Pattern Guidance**
 
 > "How should I structure my Makefiles according to the guide?"
 > 
 > "What CI/CD practices does the guide recommend?"
+>
+> "Show me the Makefile patterns and conventions"
+>
+> "What are the best practices for CI/CD?"
 
 The LLM will fetch guides for `patterns/make` or `others/cicd`.
 
 **Discovery and Exploration**
 
-> "What deep dive guides are available?"
+> "What guides are available?"
 > 
 > "List all the specialized guides you have access to"
+>
+> "What patterns and best practices can you help me with?"
 
 The LLM will use `list_available_guides` to show all categories and topics.
 
@@ -157,8 +169,10 @@ The LLM will use `list_available_guides` to show all categories and topics.
 The LLM will fetch multiple guides (`languages/python` and `platforms/postgresql`) to give comprehensive advice.
 
 > "Help me review this shell script using the developer guide principles"
+>
+> "What conventions should I follow for shell scripts?"
 
-The LLM will get the main guide for review principles, then the shell scripts deep dive for specific best practices.
+The LLM will get the main guide for review principles, then the shell scripts guide for specific best practices.
 
 ## Configuration
 

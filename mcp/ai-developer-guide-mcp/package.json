@@ -1,7 +1,7 @@
 {
   "name": "@dwmkerr/ai-developer-guide-mcp",
   "version": "0.1.6",
-  "description": "MCP server for the AI Developer Guide - provides LLMs with access to development best practices and deep dives",
+  "description": "A set of standards, patterns and principles for development projects. Use with AI and your development team, evolve for your needs.",
   "type": "module",
   "main": "./dist/cli.js",
   "bin": {

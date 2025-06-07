@@ -88,10 +88,10 @@ describe('ApiClient', () => {
     });
   });
 
-  describe('fetchDeepDive', () => {
-    it('should fetch deep dive guide successfully', async () => {
+  describe('fetchGuide', () => {
+    it('should fetch guide successfully', async () => {
       const mockResponse = {
-        title: 'Python Deep Dive',
+        title: 'Python Guide',
         content: 'Python guide content',
         sections: [],
       };
@@ -101,7 +101,7 @@ describe('ApiClient', () => {
         json: () => Promise.resolve(mockResponse),
       } as Response);
 
-      const result = await apiClient.fetchDeepDive('languages', 'python');
+      const result = await apiClient.fetchGuide('languages', 'python');
 
       expect(mockFetch).toHaveBeenCalledWith('http://test.example.com/api/guides/languages/python.json');
       expect(result).toEqual(mockResponse);
@@ -113,7 +113,7 @@ describe('ApiClient', () => {
         statusText: 'Internal Server Error',
       } as Response);
 
-      await expect(apiClient.fetchDeepDive('languages', 'python')).rejects.toThrow('Failed to fetch deep dive languages/python: Internal Server Error');
+      await expect(apiClient.fetchGuide('languages', 'python')).rejects.toThrow('Failed to fetch guide languages/python: Internal Server Error');
     });
   });
 

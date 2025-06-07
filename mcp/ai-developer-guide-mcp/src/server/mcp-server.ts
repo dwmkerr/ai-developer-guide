@@ -53,8 +53,8 @@ export class DeveloperGuideMcpServer {
             },
           },
           {
-            name: 'fetch_deep_dive',
-            description: 'Fetch a specific deep dive guide (e.g., Python, Shell Scripts, Make, PostgreSQL)',
+            name: 'fetch_guide',
+            description: 'Fetch a specific guide (e.g., Python, Shell Scripts, Make, PostgreSQL)',
             inputSchema: {
               type: 'object',
               properties: {
@@ -73,7 +73,7 @@ export class DeveloperGuideMcpServer {
           },
           {
             name: 'list_available_guides',
-            description: 'List all available deep dive guides with their categories and descriptions',
+            description: 'List all available guides with their categories and descriptions',
             inputSchema: {
               type: 'object',
               properties: {},
@@ -113,13 +113,13 @@ export class DeveloperGuideMcpServer {
             };
           }
 
-          case 'fetch_deep_dive': {
+          case 'fetch_guide': {
             const { category, topic } = args as { category: string; topic: string };
-            this.log(`Fetching deep dive: category="${category}", topic="${topic}"`);
+            this.log(`Fetching guide: category="${category}", topic="${topic}"`);
             const startTime = Date.now();
-            const guide = await this.apiClient.fetchDeepDive(category, topic);
+            const guide = await this.apiClient.fetchGuide(category, topic);
             const duration = Date.now() - startTime;
-            this.log(`Deep dive guide fetched successfully in ${duration}ms (${guide.content.length} chars)`);
+            this.log(`Guide fetched successfully in ${duration}ms (${guide.content.length} chars)`);
             
             return {
               content: [
@@ -150,7 +150,7 @@ export class DeveloperGuideMcpServer {
               return acc;
             }, {} as Record<string, typeof guides>);
 
-            let text = 'Available Deep Dive Guides:\n\n';
+            let text = 'Available Guides:\n\n';
             for (const [category, categoryGuides] of Object.entries(guidesByCategory)) {
               text += `**${category.charAt(0).toUpperCase() + category.slice(1)}:**\n`;
               for (const guide of categoryGuides) {

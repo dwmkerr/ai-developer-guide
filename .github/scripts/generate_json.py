@@ -34,7 +34,7 @@ def extract_references(content, base_url="api/guides"):
     """
     references = []
     
-    # Pattern to match markdown links like [Python Guide](./docs/guides/python.md)
+    # Pattern to match markdown links like [Python Guide](./guides/python.md)
     link_pattern = r'\[(.*?)\]\((.*?)\)'
     guide_links = re.finditer(link_pattern, content)
     
@@ -101,7 +101,7 @@ def create_guide_json(readme_path, output_dir):
     """
     # Get the project root directory
     project_dir = os.path.dirname(os.path.abspath(readme_path))
-    guides_dir = os.path.join(project_dir, "docs", "guides")
+    guides_dir = os.path.join(project_dir, "guides")
     print(f"Looking for guides in: {guides_dir}")
     
     # Ensure output directories exist
@@ -166,7 +166,7 @@ def create_guide_json(readme_path, output_dir):
                     "type": guide_type,
                     "version": read_version(project_dir),
                     "lastUpdated": datetime.now().strftime("%Y-%m-%d"),
-                    "source": f"https://github.com/dwmkerr/ai-developer-guide/docs/guides/{filename}"
+                    "source": f"https://github.com/dwmkerr/ai-developer-guide/guides/{filename}"
                 },
                 "content": guide_data["content"]
             }
