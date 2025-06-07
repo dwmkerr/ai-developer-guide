@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.6...v0.1.7) (2025-06-07)
+
+
+### Features
+
+* **docs:** improvements to CI/CD running locally ([6a2d04b](https://github.com/dwmkerr/ai-developer-guide/commit/6a2d04ba6149211cd3a9f8cf2df0d815d621c6c7))
+
 ## [0.1.6](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.5...v0.1.6) (2025-06-06)
 
 
