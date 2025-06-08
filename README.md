@@ -58,7 +58,6 @@ The [Setup Guide](./docs/setup.md) contains instructions on how to setup editors
 - [The Developer Guide](#the-developer-guide)
     - [Documentation](#documentation)
     - [Comments](#comments)
-    - [Comments](#comments-1)
     - [Modules](#modules)
     - [Project Structure](#project-structure)
     - [Technical Debt](#technical-debt)
@@ -197,8 +196,6 @@ Prefer a `docs` folder for more detailed documentation such as configuration gui
 Websites generated from Markdown documentation should be used for complex projects, here are two good examples:
 
 - https://www.tensorzero.com/docs/
-
-### Comments
 
 ### Comments
 
