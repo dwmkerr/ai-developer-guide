@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.8...v0.1.9) (2025-06-08)
+
+
+### Features
+
+* **opensource:** add the 'open source' guide ([#31](https://github.com/dwmkerr/ai-developer-guide/issues/31)) ([b53bb43](https://github.com/dwmkerr/ai-developer-guide/commit/b53bb439d1cf06a3b87225e97047956654945a56))
+
 ## [0.1.8](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.7...v0.1.8) (2025-06-07)
 
 
