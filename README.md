@@ -5,12 +5,15 @@
   <p align="center">
     <img src="https://img.shields.io/endpoint?url=https://dwmkerr.github.io/ai-developer-guide/version-badge.json" alt="Version" />
     <a href="https://www.npmjs.com/package/@dwmkerr/ai-developer-guide-mcp"><img src="https://img.shields.io/npm/v/%40dwmkerr/ai-developer-guide-mcp" alt="ai-developer-guide-mcp"></a>
+    <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+    <!-- ALL-CONTRIBUTORS-BADGE:END -->
   </p>
   <p align="center">
     <a href="#quickstart">Quickstart</a> |
     <a href="#the-golden-rules">The Golden Rules</a> |
     <a href="#the-developer-guide">The Developer Guide</a> |
     <a href="./docs/setup.md">Setup & MCP Instructions</a> |
+    <a href="./docs/examples.md">Examples</a> |
     <a href="./docs/about.md">About</a>
   </p>
 </p>
@@ -262,6 +265,7 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 
 - [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
 - [CICD](./guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
+- [Open Source](./guides/open-source.md): best practices for open source projects, encouraging contributions and ease of use
 
 ## Platform Specific Guides
 

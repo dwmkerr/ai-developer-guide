@@ -101,8 +101,6 @@ You can also run locally with live reload:
 npm run dev -- start --base-url http://localhost:9090
 ```
 
-The server logs all activity to `stderr` (standard error) following MCP conventions.
-
 And you can quickly test with the MCP inspector:
 
 ```bash
@@ -111,6 +109,11 @@ npx @modelcontextprotocol/inspector node ./dist/cli.js start --base-url http://l
 ```
 
 <a href="https://github.com/modelcontextprotocol/inspector"><img src="./docs/mcp-inspector-screenshot.png" width="480" alt="MCP Inspector Screenshot" /></a>
+
+The server logs all activity to `stderr` (standard error) following MCP conventions.
+
+Check logs in Cursor with 'View > Output' and choose 'MCP Logs'.
+Check logs in Clade Desktop by following [the logging instructions](https://modelcontextprotocol.io/quickstart/user#getting-logs-from-claude-for-desktop).
 
 ## Available Tools
 

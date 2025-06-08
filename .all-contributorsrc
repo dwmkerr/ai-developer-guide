@@ -1,5 +1,6 @@
 {
   "files": [
+    "README.md",
     "docs/contributors.md"
   ],
   "imageSize": 100,
@@ -31,5 +32,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "ai-developer-guide",
-  "projectOwner": "dwmkerr"
+  "projectOwner": "dwmkerr",
+  "badgeTemplate": "<a href=\"https://github.com/dwmkerr/ai-developer-guide/blob/main/docs/contributors.md\"><img src=\"https://img.shields.io/github/all-contributors/<%= projectOwner %>/<%= projectName %>?color=ee8449&style=flat-square\" alt=\"All Contributors\" /></a>"
 }

@@ -8,6 +8,7 @@ This page describes how to set up specific tools and editors, as well as how to 
     - [Visual Studio Code](#visual-studio-code)
     - [Cursor](#cursor)
     - [Claude Code](#claude-code)
+    - [Claude Desktop](#claude-desktop)
 - [MCP](#mcp)
 - [Extending the Guide or Project Specific Guides](#extending-the-guide-or-project-specific-guides)
 - [Building Your Own Guide](#building-your-own-guide)
@@ -65,6 +66,10 @@ You MUST follow the rules in this guide.
 # - ...etc
 EOF
 ```
+
+### Claude Desktop
+
+Go go 'Claude > Settings > Developer' then choose 'Edit Config' and add the [MCP Server Configuration](#mcp).
 
 ## MCP
 

@@ -1,3 +1,12 @@
+// Polyfill fetch for Node.js environments that don't have it
+async function getFetch(): Promise<typeof fetch> {
+  if (globalThis.fetch) {
+    return globalThis.fetch;
+  }
+  const { default: nodeFetch } = await import('node-fetch');
+  return nodeFetch as any;
+}
+
 export interface GuideContent {
   title: string;
   content: string;
@@ -40,7 +49,8 @@ export class ApiClient {
   }
 
   async fetchApiIndex(): Promise<ApiIndex> {
-    const response = await fetch(`${this.baseUrl}/api.json`);
+    const fetchFn = await getFetch();
+    const response = await fetchFn(`${this.baseUrl}/api.json`);
     if (!response.ok) {
       throw new Error(`Failed to fetch API index: ${response.statusText}`);
     }
@@ -48,7 +58,8 @@ export class ApiClient {
   }
 
   async fetchMainGuide(): Promise<GuideContent> {
-    const response = await fetch(`${this.baseUrl}/api/guide.json`);
+    const fetchFn = await getFetch();
+    const response = await fetchFn(`${this.baseUrl}/api/guide.json`);
     if (!response.ok) {
       throw new Error(`Failed to fetch main guide: ${response.statusText}`);
     }
@@ -56,7 +67,8 @@ export class ApiClient {
   }
 
   async fetchGuide(category: string, topic: string): Promise<GuideContent> {
-    const response = await fetch(`${this.baseUrl}/api/guides/${category}/${topic}.json`);
+    const fetchFn = await getFetch();
+    const response = await fetchFn(`${this.baseUrl}/api/guides/${category}/${topic}.json`);
     if (!response.ok) {
       throw new Error(`Failed to fetch guide ${category}/${topic}: ${response.statusText}`);
     }
