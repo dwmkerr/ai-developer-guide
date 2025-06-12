@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.10](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.9...v0.1.10) (2025-06-12)
+
+
+### Features
+
+* **cli:** basic CLI guide ([#33](https://github.com/dwmkerr/ai-developer-guide/issues/33)) ([d98142f](https://github.com/dwmkerr/ai-developer-guide/commit/d98142f6749d40666e34d572ef6c3b364947e61d))
+* **site:** improvements to site structure and instructions ([d98142f](https://github.com/dwmkerr/ai-developer-guide/commit/d98142f6749d40666e34d572ef6c3b364947e61d))
+
+
+### Bug Fixes
+
+* **build:** skip link check for login-only content ([f116321](https://github.com/dwmkerr/ai-developer-guide/commit/f116321dd7cd8ab41434ab827c5ba3a0ac4a4c6a))
+
 ## [0.1.9](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.8...v0.1.9) (2025-06-08)
 
 
