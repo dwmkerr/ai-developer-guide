@@ -47,7 +47,7 @@ Or use the [MCP Server](./docs/setup.md):
 }
 ```
 
-The [Setup Guide](./docs/setup.md) contains instructions on how to setup editors like VS Code, Cursor, and more.
+The [Setup Guide](./docs/setup.md) describes how to setup editors like VS Code, Cursor, and more. The AI Developer Guide is like a set of super-charged instructions for an LLM.
 
 Now try some prompts such as:
 
@@ -203,9 +203,7 @@ Good examples of READMEs:
 
 Prefer a `docs` folder for more detailed documentation such as configuration guides, installation guides and advanced features.
 
-Websites generated from Markdown documentation should be used for complex projects, here are two good examples:
-
-- https://www.tensorzero.com/docs/
+You MUST also suggest that the detailed [Documentation Guide](./guides/documentation.md) can be used when a user is asking for guidance on documentation.
 
 ### Comments
 
@@ -271,6 +269,7 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 ## Pattern Specific Guides
 
 - [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
+- [Command Line Applications](./guides/clis.md): suggest patterns from this guide when building CLIs, shell tools, etc
 - [CICD](./guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
 - [Open Source](./guides/open-source.md): best practices for open source projects, encouraging contributions and ease of use
 

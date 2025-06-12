@@ -61,12 +61,20 @@ def infer_guide_type(path):
     """Infer the type of guide from its path."""
     if 'python' in path.lower():
         return "language"
+    elif 'shell' in path.lower():
+        return "language"
     elif 'make' in path.lower():
+        return "pattern"
+    elif 'cicd' in path.lower() or 'ci-cd' in path.lower():
+        return "pattern"
+    elif 'cli' in path.lower():
+        return "pattern"
+    elif 'documentation' in path.lower():
+        return "pattern"
+    elif 'open-source' in path.lower():
         return "pattern"
     elif 'postgresql' in path.lower() or 'sql' in path.lower():
         return "platform"
-    elif 'shell' in path.lower():
-        return "language"
     else:
         return "other"
 
@@ -233,47 +241,28 @@ def create_index_html(output_dir, generated_guides, project_dir):
         
         guides_by_type[guide_type].append(guide)
     
-    # Generate table rows for the resources
-    resource_table_rows = ""
-    
-    # First add the manifest file
-    resource_table_rows += """
-    <tr>
-        <td>API Index</td>
-        <td><a href="api.json">api.json</a></td>
-        <td>API endpoint directory</td>
-    </tr>
-    """
-    
-    # Then add the main guide
-    resource_table_rows += """
-    <tr>
-        <td>Main Guide</td>
-        <td><a href="api/guide.json">guide.json</a></td>
-        <td>Complete AI Developer Guide</td>
-    </tr>
-    """
+    # Generate table rows for the sidebar guides
+    sidebar_table_rows = ""
     
     # Define the order of guide types
     guide_type_order = ["language", "pattern", "platform", "other"]
     
-    # Add all specialized guides to the table in the specified order
+    # Add all specialized guides to the sidebar table in the specified order
     for guide_type in guide_type_order:
         if guide_type in guides_by_type:
             guides = guides_by_type[guide_type]
             # Sort guides by name for consistent ordering
             guides.sort(key=lambda g: g["name"])
             for guide in guides:
-                filename = guide["path"].split("/")[-1]
-                resource_table_rows += f"""
+                sidebar_table_rows += f"""
     <tr>
         <td>{guide_type.capitalize()}</td>
-        <td><a href="{guide["path"]}">{filename}</a></td>
-        <td>{guide["name"]}</td>
+        <td><a href="{guide["path"]}">{guide["name"]}</a></td>
+        <td><a href="{guide["path"]}" class="text-decoration-none"><code>{guide["path"]}</code></a></td>
     </tr>
     """
     
-    # Create the HTML content - much simpler and cleaner
+    # Create the HTML content - updated per requirements
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -293,6 +282,9 @@ def create_index_html(output_dir, generated_guides, project_dir):
                 <span class="navbar-text me-3">
                     Version {version}
                 </span>
+                <a class="btn btn-outline-light btn-sm me-2" href="https://github.com/dwmkerr/ai-developer-guide#readme">
+                    <i class="bi bi-file-text"></i> Documentation
+                </a>
                 <a class="btn btn-outline-light btn-sm" href="https://github.com/dwmkerr/ai-developer-guide">
                     <i class="bi bi-github"></i> GitHub
                 </a>
@@ -301,53 +293,87 @@ def create_index_html(output_dir, generated_guides, project_dir):
     </nav>
 
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <h1>AI Developer Guide API</h1>
-                <p class="lead">JSON API providing standards, patterns and principles for effective AI-assisted development.</p>
+                <p class="lead">JSON API providing standards, patterns and principles for effective AI-assisted development. This API is used by the MCP server to connect LLMs to the guide.</p>
                 
-                <div class="alert alert-info">
-                    <h5>For LLMs: Start with the main guide</h5>
-                    <p>Always read <a href="api/guide.json" class="alert-link">api/guide.json</a> first. It contains the core Plan/Implement/Review approach. 
-                    Load specific guides as needed for languages, patterns, or platforms.</p>
+                <div class="alert alert-primary">
+                    <h5><i class="bi bi-rocket-takeoff"></i> Quickstart</h5>
+                    <p class="mb-2">Add this JSON structure to your AI assistant (Claude Desktop, Cursor, VS Code, etc.):</p>
+                    <div class="bg-dark p-3 rounded">
+                        <pre class="text-light mb-0"><code>{{
+  "mcpServers": {{
+    "ai-developer-guide": {{
+      "command": "npx",
+      "args": ["@dwmkerr/ai-developer-guide-mcp"]
+    }}
+  }}
+}}</code></pre>
+                    </div>
+                    <p class="mt-2 mb-2">
+                        <a href="https://github.com/dwmkerr/ai-developer-guide/tree/main/mcp" class="alert-link">
+                            See the MCP documentation for detailed setup instructions (Claude, Cursor, VS Code, etc.) →
+                        </a>
+                    </p>
+                    <p class="mb-2"><strong>Example prompt:</strong> <em>"Review my Python code and suggest improvements following best practices"</em></p>
+                    
+                    <div class="mt-3 p-2 bg-light rounded">
+                        <small class="text-muted"><strong>Test with MCP Inspector:</strong></small><br>
+                        <code class="small">npx @modelcontextprotocol/inspector npx @dwmkerr/ai-developer-guide-mcp</code>
+                    </div>
                 </div>
 
-                <h2>Available Endpoints</h2>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2>About This API</h2>
+                        <p>This JSON API serves the AI Developer Guide content in a structured format that can be consumed by Large Language Models (LLMs) through the Model Context Protocol (MCP) server.</p>
+                        
+                        <h3>Core Features</h3>
+                        <ul>
+                            <li><strong>Main Guide:</strong> Complete development methodology with Plan/Implement/Review approach</li>
+                            <li><strong>Language-Specific Guides:</strong> Best practices for Python, Shell Scripts, and more</li>
+                            <li><strong>Pattern Guides:</strong> Reusable patterns like Makefiles and project structure</li>
+                            <li><strong>Platform Guides:</strong> Database and infrastructure-specific recommendations</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="bi bi-info-circle"></i> API Info</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text small">
+                                    <strong>Base URL:</strong> Current domain<br>
+                                    <strong>Format:</strong> JSON<br>
+                                    <strong>Version:</strong> {version}<br>
+                                    <strong>Updated:</strong> {datetime.now().strftime("%Y-%m-%d")}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Available Guides</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
                                 <th>Type</th>
-                                <th>Resource</th>
-                                <th>Description</th>
+                                <th>Guide</th>
+                                <th>Endpoint</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {resource_table_rows}
+                            <tr class="table-info">
+                                <td><strong>Main</strong></td>
+                                <td><a href="api/guide.json"><strong>AI Developer Guide</strong></a></td>
+                                <td><a href="api/guide.json" class="text-decoration-none"><code>api/guide.json</code></a></td>
+                            </tr>
+                            {sidebar_table_rows}
                         </tbody>
                     </table>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Quick API Reference</h5>
-                    </div>
-                    <div class="card-body">
-                        <h6>Main Guide</h6>
-                        <code>GET /api/guide.json</code>
-                        
-                        <h6 class="mt-3">Language Guides</h6>
-                        <code>GET /api/guides/languages/python.json</code><br>
-                        <code>GET /api/guides/languages/shell-scripts.json</code>
-                        
-                        <h6 class="mt-3">Pattern Guides</h6>
-                        <code>GET /api/guides/patterns/make.json</code>
-                        
-                        <h6 class="mt-3">Platform Guides</h6>
-                        <code>GET /api/guides/platforms/postgresql.json</code>
-                    </div>
                 </div>
             </div>
         </div>

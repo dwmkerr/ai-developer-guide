@@ -66,6 +66,9 @@ First run the site locally:
 ```bash
 # From repo root run the site, runs on http://localhost:9090
 make site-build && make site-run
+
+# If you prefer, run the site in live-reload mode.
+make site-dev
 ```
 
 Build the server locally:
