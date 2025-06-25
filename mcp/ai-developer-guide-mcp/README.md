@@ -118,6 +118,21 @@ The server logs all activity to `stderr` (standard error) following MCP conventi
 Check logs in Cursor with 'View > Output' and choose 'MCP Logs'.
 Check logs in Clade Desktop by following [the logging instructions](https://modelcontextprotocol.io/quickstart/user#getting-logs-from-claude-for-desktop).
 
+**HTTP Transport**
+
+You can run with HTTP transport by using the [`mcp-proxy`](https://github.com/sparfenyuk/mcp-proxy). As an example, here's how you could expose the AI Developer Guide MCP Server on port 30001 over HTTP SSE:
+
+```bash
+# Install MCP proxy.
+pipx install mcp-proxy
+
+# Run the MCP server.
+mcp-proxy --port 30001 --host 0.0.0.0 --stateless --allow-origin '*' --pass-environment -- npm run dev
+
+# Optionally test with the MCP inspector.
+npx @modelcontextprotocol/inspector http://localhost:30001/mcp
+```
+
 ## Available Tools
 
 When connected to an LLM via MCP, the following tools are available:
