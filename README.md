@@ -12,9 +12,7 @@
     <a href="#quickstart">Quickstart</a> |
     <a href="#the-golden-rules">The Golden Rules</a> |
     <a href="#the-developer-guide">The Developer Guide</a> |
-    <a href="./docs/setup.md">Setup & MCP Instructions</a> |
-    <a href="./docs/examples.md">Examples</a> |
-    <a href="./docs/about.md">About</a>
+    <a href="#mcp-server">MCP Server</a>
   </p>
 </p>
 
@@ -24,7 +22,7 @@ Point your LLM/agents/editor at this guide and you will get significantly improv
 - Sensible design patterns are followed, technical debt is managed
 - Non-functional requirements like tests, linting, documentation and designs are managed
 - Agentic systems can use the guide to automatically check and improve your codebase or pull requests 
-- [...and much, much, more](./docs/about.md)
+- ...and much, much, more
 
 ## Quickstart
 
@@ -36,7 +34,7 @@ Read the developer guide at:
 You MUST follow the rules in this guide. Summarise its intent in three lines.
 ```
 
-Or use the [MCP Server](./docs/setup.md):
+Or use the MCP Server:
 
 ```json
 {
@@ -47,14 +45,18 @@ Or use the [MCP Server](./docs/setup.md):
 }
 ```
 
-The [Setup Guide](./docs/setup.md) describes how to setup editors like VS Code, Cursor, and more. The AI Developer Guide is like a set of super-charged instructions for an LLM.
+## MCP Server
+
+The AI Developer Guide includes an [MCP (Model Context Protocol) server](./mcp/ai-developer-guide-mcp/README.md) that provides programmatic access to all guides and can be integrated with Claude Desktop, VS Code, and other MCP-compatible tools.
+
+The AI Developer Guide is like a set of super-charged instructions for an LLM.
 
 Now try some prompts such as:
 
 - "Look through the AI developer guide and tell me how to improve my project"
 - "What would be the essential patterns for open source for me to implement"
 - "How can I make my Python code more idiomatically correct?"
-- [...more examples](./docs/examples.md)
+- ...more examples available in the MCP server
 
 **Table of Contents**
 
