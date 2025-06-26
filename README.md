@@ -13,7 +13,9 @@
     <a href="#quickstart">Quickstart</a> |
     <a href="#the-golden-rules">The Golden Rules</a> |
     <a href="#the-developer-guide">The Developer Guide</a> |
-    <a href="#mcp-server">MCP Server</a>
+    <a href="./docs/setup.md">Setup & MCP Instructions</a> |
+    <a href="./docs/examples.md">Examples</a> |
+    <a href="./docs/about.md">About</a>
   </p>
 </p>
 
@@ -23,7 +25,7 @@ Point your LLM/agents/editor at this guide and you will get significantly improv
 - Sensible design patterns are followed, technical debt is managed
 - Non-functional requirements like tests, linting, documentation and designs are managed
 - Agentic systems can use the guide to automatically check and improve your codebase or pull requests 
-- ...and much, much, more
+- [...and much, much, more](./docs/about.md)
 
 ## Quickstart
 
@@ -57,7 +59,7 @@ Now try some prompts such as:
 - "Look through the AI developer guide and tell me how to improve my project"
 - "What would be the essential patterns for open source for me to implement"
 - "How can I make my Python code more idiomatically correct?"
-- ...more examples available in the MCP server
+- [...more examples](./docs/examples.md)
 
 **Table of Contents**
 
