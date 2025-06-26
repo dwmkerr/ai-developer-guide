@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.10...v0.1.11) (2025-06-26)
+
+
+### Features
+
+* add kubernetes development guide and cleanup docs ([#37](https://github.com/dwmkerr/ai-developer-guide/issues/37)) ([0618fb3](https://github.com/dwmkerr/ai-developer-guide/commit/0618fb36cf78794ca536f7a1ee0c0ac5d0a1ae2b))
+
 ## [0.1.10](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.9...v0.1.10) (2025-06-12)
 
 
