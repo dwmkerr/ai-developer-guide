@@ -50,7 +50,7 @@ Or use the MCP Server:
 
 ## MCP Server
 
-The AI Developer Guide includes an [MCP (Model Context Protocol) server](./mcp/ai-developer-guide-mcp/README.md) that provides programmatic access to all guides and can be integrated with Claude Desktop, VS Code, and other MCP-compatible tools.
+The AI Developer Guide can also be used with an [MCP (Model Context Protocol) server](./mcp/ai-developer-guide-mcp/README.md) that provides programmatic access to all guides and can be integrated with Claude Desktop, Claude Code, VS Code, and other MCP-compatible tools.
 
 The AI Developer Guide is like a set of super-charged instructions for an LLM.
 

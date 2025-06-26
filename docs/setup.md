@@ -67,6 +67,12 @@ You MUST follow the rules in this guide.
 EOF
 ```
 
+You can also use the [MCP Server](#mcp) with Claude Code:
+
+```bash
+claude mcp add ai-developer-guide -- npx -y @dwmkerr/ai-developer-guide-mcp
+```
+
 ### Claude Desktop
 
 Go go 'Claude > Settings > Developer' then choose 'Edit Config' and add the [MCP Server Configuration](#mcp).
