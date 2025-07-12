@@ -42,13 +42,82 @@ You can also drop the prompt directly in the chat:
 
 ### Cursor
 
-Paste the following prompt it to the chat box:
+To have Cursor consider the guide _during a single conversation in the Chat window_ - which is a great way to just test-drive the guide - paste the following prompt into the chat box:
 
 ```
 Read the developer guide at:
   https://github.com/dwmkerr/ai-developer-guide
 You MUST follow the rules in this guide.
 ```
+
+To ensure that the AI Developer Guide is consistently used by the Cursor agent across restarts, you need to embed it in one or more ways that Cursor always picks up as part of its 'context' for interactions with you. There are several options, which may be mutually reinforcing approaches, to ensure it's always front-of-mind for the agent and used consistently. Note that there is not yet evidence (as of July '25) as to which of these gets best results, but we've included them in approximate order of ease-versus-power. And, we've saved the brand-new (as of July '25) 'Rules' feature for last, as its value/impact is not yet quantified.
+
+#### 1. (Easiest) Just Reference the Guide in Your README.md
+
+Cursor uses README.md as a key source of context. Add a section like:
+
+```markdown
+## 🧠 AI Assistant Usage
+
+This project follows the [AI Developer Guide](./AI_DEVELOPER_GUIDE.md) to ensure that interactions with Cursor are consistent, safe, and effective. Cursor agents should follow these principles when generating or modifying code.
+```
+
+This increases the chance Cursor loads it into its context window at startup.
+
+#### 2. Reinforce with Inline Prompts in Chat
+
+You can remind Cursor with something like:
+
+`When generating code, follow the principles in AI_DEVELOPER_GUIDE.md.`
+
+Or paste key excerpts in the first prompt of a session:
+
+```
+Use the following guide as your baseline for all code generation:
+https://github.com/dwmkerr/ai-developer-guide
+````
+
+However, we've all seen Cursor agents become confused and start rabbit-holing _within a single task_ so you may not find this approach adequate to meet your needs. Further, it isn't persistent across sessions, let alone across projects. 
+
+#### 3. Optional: Add a Dev Guide Summary as a Code Comment
+
+Add a top-level comment in main.py, index.ts, etc., like:
+```markdown
+/*
+  AI Agent Guidance:
+  Follow principles from the AI Developer Guide (AI_DEVELOPER_GUIDE.md).
+  - Code must be correct and tested
+  - Don’t hallucinate APIs
+  - Provide meaningful comments
+  - Keep code minimal and maintainable
+*/
+```
+Cursor’s AI sees these when working in that file, even across sessions.
+
+#### 4. Add the full Guide to Your Project Repo
+
+Save the full-text of the guide (or a curated/abbreviated version tailored to your team) to a file like this at the root of your repo: `/AI_DEVELOPER_GUIDE.md` (There doesn't yet seem to be a comprehensive, downloadable single-file version of the guide that includes the language/pattern-specific sub-guides, so you may need to add these yourself.) 
+
+You can also use a subfolder like: `/docs/ai/AI_DEVELOPER_GUIDE.md`. But, (according to ChatGPT's reading) placing it at the root seems to increase visibility to Cursor’s AI.
+
+It is unclear as yet how Cursor will prioritize docs stored in the repo versus 'Rules' stored in Cursor's own settings (see below). 
+
+#### 5. Use Cursor's 'Rules' feature (related: 'Memories') 
+
+Cursor's new 'Memories' feature does not have a UI to manually add memories. Either the agent thinks it needs a memory, or it doesn't. 
+
+However, the 'Rules' feature should be a fit. You can edit these directly in the app at `Settings >> Cursor Settings >> Rules & Memories`.
+
+Note that there are User Rules, which will apply across all projects, and Project Rules, which are limited-scope. You may for instance want to add the general AI Developer Guide to the User Rules, while reserving the contextual sub-guides for certain projects. YMMV.
+
+It is unclear as yet whether it is materially better to paste the entire guide into the Rule field, or to simply link to the guide with: 
+
+```
+Read the `AI Developer Guide` at:
+  https://github.com/dwmkerr/ai-developer-guide
+You MUST follow the rules in this guide.
+```
+The link option at least has the value of being continuously updated. 
 
 ### Claude Code
 
