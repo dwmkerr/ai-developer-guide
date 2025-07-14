@@ -104,20 +104,13 @@ It is unclear as yet how Cursor will prioritize docs stored in the repo versus '
 
 #### 5. Use Cursor's 'Rules' feature (related: 'Memories') 
 
-Cursor's new 'Memories' feature does not have a UI to manually add memories. Either the agent thinks it needs a memory, or it doesn't. 
+Cursor's new 'Memories' feature does not have a UI to manually add memories. Either the agent thinks it needs a memory, or it doesn't.
 
 However, the 'Rules' feature should be a fit. You can edit these directly in the app at `Settings >> Cursor Settings >> Rules & Memories`.
 
 Note that there are User Rules, which will apply across all projects, and Project Rules, which are limited-scope. You may for instance want to add the general AI Developer Guide to the User Rules, while reserving the contextual sub-guides for certain projects. YMMV.
 
-It is unclear as yet whether it is materially better to paste the entire guide into the Rule field, or to simply link to the guide with: 
-
-```
-Read the `AI Developer Guide` at:
-  https://github.com/dwmkerr/ai-developer-guide
-You MUST follow the rules in this guide.
-```
-The link option at least has the value of being continuously updated. 
+It seems not to be possible to simply link to the guide from inside a rule, as in option 1. The agent doesn't have the ability to follow the link and download the content as when in interactive mode. So, better to copy/paste the contents of the readme into one Rule, and then add any additional needed guides into other Rules.
 
 ### Claude Code
 
