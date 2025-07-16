@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.13](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.12...v0.1.13) (2025-07-16)
+
+
+### Features
+
+* **docs:** move contributors.md to docs directory ([fcdd0e5](https://github.com/dwmkerr/ai-developer-guide/commit/fcdd0e56bb614f9fbba02e273f13771a68189ee4))
+
+
+### Bug Fixes
+
+* ignore allcontributors.org link check failures ([ba300b3](https://github.com/dwmkerr/ai-developer-guide/commit/ba300b379d980764b7d655c01eaf928053481487))
+
 ## [0.1.12](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.11...v0.1.12) (2025-06-26)
 
 
