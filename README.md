@@ -276,9 +276,9 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 - [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
 - [Command Line Applications](./guides/clis.md): suggest patterns from this guide when building CLIs, shell tools, etc
 - [CICD](./guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
+- [MCP Servers](./guides/mcp-servers.md): patterns for Model Context Protocol servers and tool documentation
 - [Pull Requests](./guides/pull-requests.md): guidelines for writing concise, focused pull request descriptions
 - [Open Source](./guides/open-source.md): best practices for open source projects, encouraging contributions and ease of use
-- [Contributors](./guides/contributors.md): guide for recognizing and adding contributors to your project
 
 ## Platform Specific Guides
 

@@ -25,6 +25,10 @@ We SHOULD pin requirement version numbers to ensure deterministic resolution of 
 
 We SHOULD put a comment after each requirement briefly stating what it is for - some developers will be unfamiliar even with common requirements.
 
+**MCP Tools**
+
+For MCP servers, tool docstrings require detailed descriptions since AI agents use them for tool selection. See the [MCP Servers guide](mcp-servers.md) for specific patterns.
+
 **Exception Handling**
 
 There must be exception handling at the 'domain boundary' level. This means that in Python code when we are handling a request we are in the domain of our code, but an exception must be exposed _outside_ of the domain as an HTTP status code. So HTTP handlers must catch and transform exceptions. For a CLI app, the domain is the internal code and its boundary is where we translate and show output in `stderr`, `stdout` and with a status code. We must always have exception handlers in boundaries like this; but remember many libraries will have basic handling of this already.
