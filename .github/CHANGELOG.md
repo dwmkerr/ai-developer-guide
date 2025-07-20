@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.13...v0.1.14) (2025-07-20)
+
+
+### Features
+
+* add MCP servers guide ([#44](https://github.com/dwmkerr/ai-developer-guide/issues/44)) ([5c73af0](https://github.com/dwmkerr/ai-developer-guide/commit/5c73af008a50d5d971e18f57f52bb27bd42070d0))
+
 ## [0.1.13](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.12...v0.1.13) (2025-07-16)
 
 
