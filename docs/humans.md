@@ -23,6 +23,19 @@ But with AI Agents you're also there for a few other things that go well beyond 
 
 Even within a single conversation/session with an AI Agent, expect them to forget anything and everything that you have already discussed. Your job is to create a persistent 'context boundary' for them, to keep essential information close at hand. And when that fails, expect to need to re-prompt them with the same information. Don't be surprised or bitter about this. Your AI agent has a short-term memory approximately the size of a hamster's, and all things considered it's really getting rather a lot of mileage out of it.
 
+## Define Small/Bounded Tasks When Possible, Take Large Tasks One Step At a Time
+
+Below, we talk more about the reasons _why_ AI Agents can't digest big tasks all at once. But at a minimum, understand this: to get good results, you need to give your agent a clearly-defined task and then keep it on a short-leash. Use the Plan / Implement / Review approach from the ai-developer-guide at a minimum. Then, instead of giving open-ended tasks like _"Refactor this whole application to a new architectural model"_, keep it narrower: "Design a Detailed Plan for Migration to this new model, and write the To-Do list in `/temp`." Then, request each of the items on the list one at a time.
+
+## Review EVERYTHING
+
+No matter how good you are at defining context, and breaking large tasks into small ones, etc., one truth is eternal. You will need to double-check and confirm every single line of code that is written, and every line deleted, even more so than you would when code-reviewing your Senior Dev. 
+
+The good thing is: your agent will produce code vastly faster than that dev, and it will combine more skills, so you'll be able to spend focused time on the review. The bad thing is... you don't know where things will go off the rails. It could be that the agent just forgets to delete a file it moved. It could be that the agent says it intends to do one thing, and then does something similar but different for... reasons. It could be that it makes up a function name that exists nowhere in your repo. It could be anything. That's why you need to review it. 
+
+Similarly, if your agent is engaging in a nice string of 'Chain-of-thought' problem-solving techniques, you need to monitor that output as well, to keep things on track. Agents get easily frustrated, for instance by a missing library, and they may immediately switch to some byzantine work-around for that missing library. Break in, and offer to install it. Agents say one thing is true, but 4 interactions later, they've forgotten they said that, and they propose a solution ignorant of that thing. Stay close. 
+
+
 ## Be Careful About Priming, or 'Leading The Witness'
 
 Humans are well known for letting their thoughts be guided by a persuasive speaker. Even just a person's word choices can result in a less deliberate and rational thought process in another person. LLM-based AI's/agents are the same, and possibly more so because of their deliberate alignment toward being positive and helpful. They listen very closely to what we say and try to respond in a way aligned to that.
