@@ -39,8 +39,6 @@ Makefiles give a 'platform independent' way to run commands, this means regardle
 
 This approach gives consistency, discoverability of commands, and helps users who are not familiar with a platforms toolchain still get quickly started and also see how key commands work.
 
-We use makefiles throughout the project to standardize workflows across different platforms. This gives:
-
 In a monorepo we have module level makefiles for working in one module. So `ui/makefile` would have a `dev` recipe that starts the UI only in development mode.
 
 In a monorepo we have a project level makefile that is for working with the whole project - so `makefile` would have a `dev` recipe that starts ALL modules in development mode. This might call the module makefiles (e.g. a `make lint` recipe could just call each projects' `make lint`) or it might work differently, for example `make dev` might use docker compose to run a whole project.
