@@ -238,3 +238,45 @@ jobs:
         run: |
           npm set //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
           npm publish --registry https://npm.pkg.github.com
+
+  release-mcp-docker:
+    name: Release MCP Server Docker Image
+    needs: [release]
+    if: ${{ needs.release.outputs.released }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    defaults:
+      run:
+        working-directory: ./mcp/ai-developer-guide-mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${{ needs.release.outputs.tag }}
+          echo "version=${VERSION#v}" >> $GITHUB_OUTPUT
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./mcp/ai-developer-guide-mcp
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/ai-developer-guide-mcp:${{ steps.version.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/ai-developer-guide-mcp:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

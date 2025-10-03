@@ -28,6 +28,7 @@ A simple MCP server that connects your LLM to the developer guide:
 - [Example LLM Interactions](#example-llm-interactions)
 - [Configuration](#configuration)
 - [API Requirements](#api-requirements)
+- [Running in Docker](#running-in-docker)
 
 <!-- vim-markdown-toc -->
 
@@ -224,3 +225,28 @@ You can configure your MCP server using these parameters:
 ## API Requirements
 
 The API structure should match the [AI Developer Guide API format](https://dwmkerr.github.io/ai-developer-guide/api.json).
+
+## Running in Docker
+
+You can run the MCP server in Docker to expose it over HTTP:
+
+```bash
+# Pull and run from GitHub Container Registry.
+docker run -p 8080:8080 ghcr.io/dwmkerr/ai-developer-guide-mcp:latest
+
+# Or build locally.
+docker build -t ai-developer-guide-mcp ./ai-developer-guide-mcp
+docker run -p 8080:8080 ai-developer-guide-mcp
+
+# Test with MCP inspector (streamable HTTP or SSE endpoints).
+npx @modelcontextprotocol/inspector http://localhost:8080/mcp # recommended
+npx @modelcontextprotocol/inspector http://localhost:8080/sse # deprecated
+```
+
+Optionally configure a custom guide URL:
+
+```bash
+docker run -p 8080:8080 \
+  -e AI_DEVELOPER_GUIDE_URL=https://your-domain.com/your-guide \
+  ghcr.io/dwmkerr/ai-developer-guide-mcp:latest
+```
