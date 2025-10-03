@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.15](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.14...v0.1.15) (2025-10-03)
+
+
+### Features
+
+* add Docker support with HTTP/SSE transport ([#50](https://github.com/dwmkerr/ai-developer-guide/issues/50)) ([83bf6f9](https://github.com/dwmkerr/ai-developer-guide/commit/83bf6f941268906dedc8c366da2e8787a21c9edd))
+
+
+### Bug Fixes
+
+* remove duplicate intro paragraph in make guide ([#48](https://github.com/dwmkerr/ai-developer-guide/issues/48)) ([9603b67](https://github.com/dwmkerr/ai-developer-guide/commit/9603b6720b77638e88ff521f74492105a03ef254))
+
 ## [0.1.14](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.13...v0.1.14) (2025-07-20)
 
 
