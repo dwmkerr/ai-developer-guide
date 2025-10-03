@@ -256,15 +256,18 @@ docker run -p 8080:8080 \
 Deploy to Kubernetes using Helm:
 
 ```bash
-# Install from the chart directory
+# Install from GHCR
+helm upgrade --install ai-developer-guide oci://ghcr.io/dwmkerr/charts/ai-developer-guide-mcp
+
+# Or install from local chart directory
 helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart
 
 # Optionally enable Ark MCPServer resource (requires Ark platform)
-helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart \
+helm upgrade --install ai-developer-guide oci://ghcr.io/dwmkerr/charts/ai-developer-guide-mcp \
   --set mcpServer.create=true
 
 # Configure custom guide URL
-helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart \
+helm upgrade --install ai-developer-guide oci://ghcr.io/dwmkerr/charts/ai-developer-guide-mcp \
   --set env.aiDeveloperGuideUrl=https://your-domain.com/your-guide
 ```
 
