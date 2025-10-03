@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.17](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.16...v0.1.17) (2025-10-03)
+
+
+### Bug Fixes
+
+* build multi-platform Docker images for AMD64 and ARM64 ([4ed036f](https://github.com/dwmkerr/ai-developer-guide/commit/4ed036fec6ea8e8ce6f46f299d1eaa3777ef53b6))
+
 ## [0.1.16](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.15...v0.1.16) (2025-10-03)
 
 
