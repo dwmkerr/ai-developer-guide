@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.17...v0.1.18) (2025-10-03)
+
+
+### Bug Fixes
+
+* remove path from MCPServer serviceRef - Ark appends /mcp automatically ([659733c](https://github.com/dwmkerr/ai-developer-guide/commit/659733c0b4a23e7d0aa445856106410e59e25d71))
+
 ## [0.1.17](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.16...v0.1.17) (2025-10-03)
 
 
