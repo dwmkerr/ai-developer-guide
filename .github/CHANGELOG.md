@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.16](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.15...v0.1.16) (2025-10-03)
+
+
+### Features
+
+* add Helm chart for Kubernetes deployment ([#52](https://github.com/dwmkerr/ai-developer-guide/issues/52)) ([45fe8c1](https://github.com/dwmkerr/ai-developer-guide/commit/45fe8c1bcfb018511eee5ed59c55a7ec33eacb0c))
+
 ## [0.1.15](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.14...v0.1.15) (2025-10-03)
 
 
