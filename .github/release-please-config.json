@@ -11,6 +11,16 @@
           "type": "json",
           "path": "mcp/ai-developer-guide-mcp/package.json",
           "jsonpath": "$.version"
+        },
+        {
+          "type": "yaml",
+          "path": "mcp/ai-developer-guide-mcp/chart/Chart.yaml",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "yaml",
+          "path": "mcp/ai-developer-guide-mcp/chart/Chart.yaml",
+          "jsonpath": "$.appVersion"
         }
       ]
     }

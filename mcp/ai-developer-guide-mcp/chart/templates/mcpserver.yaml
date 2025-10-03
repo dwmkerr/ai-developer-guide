@@ -1,0 +1,21 @@
+{{- if .Values.mcpServer.create }}
+apiVersion: ark.mckinsey.com/v1alpha1
+kind: MCPServer
+metadata:
+  name: {{ .Values.mcpServer.name | default (include "ai-developer-guide-mcp.fullname" .) }}
+  labels:
+    {{- include "ai-developer-guide-mcp.labels" . | nindent 4 }}
+spec:
+  address:
+    valueFrom:
+      serviceRef:
+        name: {{ include "ai-developer-guide-mcp.fullname" . }}
+        port: http
+        {{- if .Values.mcpServer.path }}
+        path: {{ .Values.mcpServer.path }}
+        {{- end }}
+  transport: http
+  {{- if .Values.mcpServer.description }}
+  description: {{ .Values.mcpServer.description | quote }}
+  {{- end }}
+{{- end }}

@@ -250,3 +250,22 @@ docker run -p 8080:8080 \
   -e AI_DEVELOPER_GUIDE_URL=https://your-domain.com/your-guide \
   ghcr.io/dwmkerr/ai-developer-guide-mcp:latest
 ```
+
+## Helm Chart
+
+Deploy to Kubernetes using Helm:
+
+```bash
+# Install from the chart directory
+helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart
+
+# Optionally enable Ark MCPServer resource (requires Ark platform)
+helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart \
+  --set mcpServer.create=true
+
+# Configure custom guide URL
+helm upgrade --install ai-developer-guide ./mcp/ai-developer-guide-mcp/chart \
+  --set env.aiDeveloperGuideUrl=https://your-domain.com/your-guide
+```
+
+When `mcpServer.create=true`, an [Ark](https://github.com/mckinsey/agents-at-scale-ark) MCPServer custom resource is created, registering the server with the Ark platform for agent discovery and use.
