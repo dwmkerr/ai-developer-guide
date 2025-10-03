@@ -280,3 +280,33 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/ai-developer-guide-mcp:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  release-mcp-helm:
+    name: Release MCP Server Helm Chart
+    needs: [release]
+    if: ${{ needs.release.outputs.released }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${{ needs.release.outputs.tag }}
+          echo "version=${VERSION#v}" >> $GITHUB_OUTPUT
+
+      - name: Package and push Helm chart
+        run: |
+          helm package ./mcp/ai-developer-guide-mcp/chart
+          helm push ai-developer-guide-mcp-${{ steps.version.outputs.version }}.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
