@@ -13,6 +13,7 @@ This page describes how to set up specific tools and editors, as well as how to 
         - [4. Add the full Guide to Your Project Repo](#4-add-the-full-guide-to-your-project-repo)
         - [5. Use Cursor's 'Rules' feature (related: 'Memories')](#5-use-cursors-rules-feature-related-memories)
     - [Claude Code](#claude-code)
+        - [Slash Commands](#slash-commands)
     - [Claude Desktop](#claude-desktop)
 - [MCP](#mcp)
 - [Extending the Guide or Project Specific Guides](#extending-the-guide-or-project-specific-guides)
@@ -139,6 +140,35 @@ You can also use the [MCP Server](#mcp) with Claude Code:
 ```bash
 claude mcp add ai-developer-guide -- npx -y @dwmkerr/ai-developer-guide-mcp
 ```
+
+#### Slash Commands
+
+This project provides custom Claude Code slash commands for applying AIDG standards:
+
+| Command | Description |
+|---------|-------------|
+| `/aidg-review` | Review current branch against main (default) using AIDG standards |
+| `/aidg-review --target <branch>` | Review against a different target branch |
+| `/aidg-review --pr <PR_ID>` | Review a GitHub PR including comments and files |
+
+If you have the repo cloned, install slash commands like so:
+
+```bash
+# Create commands directory in your project, or for your user.
+mkdir -p .claude/commands
+mkdir -p ~/.claude/commands
+
+# The target for the command will be your project or user directory.
+# Choose a command file to download.
+target_dir="${user_dir}"
+slash_command="aidg-review.md"
+
+# Download the command to the target directory.
+curl -o "${target_dir}/${slash_command}" \
+  https://raw.githubusercontent.com/dwmkerr/ai-developer-guide/main/docs/claude/slash-commands/${slash_command}.md
+```
+
+Once installed, use `/command-name` in any Claude Code session. The command uses the AIDG MCP tools to fetch relevant guides and can identify gaps in guide coverage.
 
 ### Claude Desktop
 
