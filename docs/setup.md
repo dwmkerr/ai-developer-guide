@@ -151,7 +151,7 @@ This project provides custom Claude Code slash commands for applying AIDG standa
 | `/aidg-review --target <branch>` | Review against a different target branch |
 | `/aidg-review --pr <PR_ID>` | Review a GitHub PR including comments and files |
 
-If you have the repo cloned, install slash commands like so:
+Install slash commands like so:
 
 ```bash
 # Create commands directory in your project, or for your user.
@@ -166,6 +166,11 @@ slash_command="aidg-review.md"
 # Download the command to the target directory.
 curl -o "${target_dir}/${slash_command}" \
   https://raw.githubusercontent.com/dwmkerr/ai-developer-guide/main/docs/claude/slash-commands/${slash_command}.md
+
+# Or if you have this repo cloned locally symlink the guides if you expect
+# to update them 
+ln -sf ~/repos/github/dwmkerr/ai-developer-guide/docs/claude/slash-commands/aidg-review.md \
+  ~/.claude/commands/
 ```
 
 Once installed, use `/command-name` in any Claude Code session. The command uses the AIDG MCP tools to fetch relevant guides and can identify gaps in guide coverage.
