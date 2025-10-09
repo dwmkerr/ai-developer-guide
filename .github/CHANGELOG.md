@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.19](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.18...v0.1.19) (2025-10-09)
+
+
+### Features
+
+* **claude:** claude slash commands and docs ([#56](https://github.com/dwmkerr/ai-developer-guide/issues/56)) ([ab120e8](https://github.com/dwmkerr/ai-developer-guide/commit/ab120e89ad1d2abad292f92902d6f58a4e40e156))
+
 ## [0.1.18](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.17...v0.1.18) (2025-10-03)
 
 
