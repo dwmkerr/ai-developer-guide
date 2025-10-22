@@ -38,13 +38,11 @@ Reference: https://github.com/golang-standards/project-layout
 
 Always check and handle errors. Never ignore them with `_`.
 
-❌ Don't ignore errors:
 ```go
+// Don't do this - ignoring errors:
 data, _ := ioutil.ReadFile("file.txt")
-```
 
-✅ Always handle errors:
-```go
+// Do this - always handle errors:
 data, err := ioutil.ReadFile("file.txt")
 if err != nil {
     return fmt.Errorf("reading config: %w", err)
@@ -99,18 +97,15 @@ func TestParseConfig(t *testing.T) {
 - Use `sync.WaitGroup` for waiting on multiple goroutines
 - Use `errgroup` for handling errors from multiple goroutines
 
-❌ Don't leak goroutines:
 ```go
+// Don't do this - goroutine leak (never exits):
 go func() {
     for {
-        // This never exits!
         doWork()
     }
 }()
-```
 
-✅ Provide exit mechanisms:
-```go
+// Do this - provide exit mechanism:
 go func() {
     for {
         select {
@@ -206,17 +201,16 @@ func Authenticate(email, password string) (string, error) {
 
 ## Common Pitfalls
 
-❌ **Range loop variable capture**:
+**Range loop variable capture**:
 ```go
+// Don't do this - all goroutines see last value:
 for _, v := range items {
     go func() {
-        process(v) // Wrong! All goroutines see last value
+        process(v) // Wrong!
     }()
 }
-```
 
-✅ **Pass value explicitly**:
-```go
+// Do this - pass value explicitly:
 for _, v := range items {
     go func(item Item) {
         process(item)
@@ -224,17 +218,16 @@ for _, v := range items {
 }
 ```
 
-❌ **Pointer to loop variable**:
+**Pointer to loop variable**:
 ```go
+// Don't do this - all pointers point to same variable:
 for _, v := range items {
-    results = append(results, &v) // All pointers point to same variable
+    results = append(results, &v)
 }
-```
 
-✅ **Copy value first**:
-```go
+// Do this - shadow variable first:
 for _, v := range items {
-    v := v // Shadow variable
+    v := v
     results = append(results, &v)
 }
 ```
