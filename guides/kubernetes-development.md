@@ -2,7 +2,7 @@
 
 ## Custom Resource Definitions (CRDs)
 
-CRDs must be well documented with rich comments that become field descriptions in the generated OpenAPI schema and CRD YAML. Use kubebuilder validation tags:
+CRDs must be well documented with rich comments that become field descriptions in the generated OpenAPI schema and CRD YAML. Use kubebuilder validation tags, as well as  a comment above each field to ensure that a `description` field is set:
 
 ```go
 // +kubebuilder:object:root=true
