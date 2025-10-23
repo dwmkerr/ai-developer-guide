@@ -267,6 +267,7 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 
 - [Makefiles](./guides/make.md)
 - [Python](./guides/python.md)
+- [Go](./guides/go.md)
 - [Shell Scripts](./guides/shell-scripts.md)
 
 ## Pattern Specific Guides
