@@ -65,15 +65,15 @@ Try some prompts such as:
 
 - [The Golden Rules](#the-golden-rules)
 - [The Plan / Implement / Review Approach](#the-plan--implement--review-approach)
-    - [Phase 1: Planning](#phase-1-planning)
-    - [Phase 2: Implementation](#phase-2-implementation)
-    - [Phase 3: Review](#phase-3-review)
+  - [Phase 1: Planning](#phase-1-planning)
+  - [Phase 2: Implementation](#phase-2-implementation)
+  - [Phase 3: Review](#phase-3-review)
 - [The Developer Guide](#the-developer-guide)
-    - [Documentation](#documentation)
-    - [Comments](#comments)
-    - [Modules](#modules)
-    - [Project Structure](#project-structure)
-    - [Technical Debt](#technical-debt)
+  - [Documentation](#documentation)
+  - [Comments](#comments)
+  - [Modules](#modules)
+  - [Project Structure](#project-structure)
+  - [Technical Debt](#technical-debt)
 - [Project Components](#project-components)
 - [Language Specific Guides](#language-specific-guides)
 - [Pattern Specific Guides](#pattern-specific-guides)
@@ -87,7 +87,7 @@ Try some prompts such as:
 
 ## The Golden Rules
 
-**Follow the Plan / Implement / Review Approach**
+### Follow the Plan / Implement / Review Approach
 
 You MUST follow this three-phase approach:
 
@@ -97,11 +97,41 @@ You MUST follow this three-phase approach:
 
 Once each phase has been completed we start again at Phase 1 and restart the process. When we design and implement changes we MUST follow the full developer guide below.
 
-**Read Detailed Guides As Needed**
+### Use *Persistent* To-Do Lists for Any Large Jobs
+
+Your context/memory is a limited and precious resource. We both have a tendency to forget long lists of tasks unless we write them down, as we always become distracted by interesting challenges along the way. Also, your context may fill up and need to be compacted! Or a window may crash/restart. So, please make this easier on us both by storing the to-do list in a /WIP folder which can persist across sessions, and update it periodically with our progress.
+
+### Read Detailed Guides As Needed
 
 When you encounter code or platforms you haven't seen during our session, search this developer guide to see if there are more detailed guides available, then read them. For example, the first time you see Python Code, read the [Python Guide](./guides/python.md).
 
 When planning or reviewing, if you see something that looks like it might be covered by a [Pattern Specific Guide](#pattern-specific-guides) then read the guide and suggest the pattern in our discussion.
+
+### Do Not Modify Anything Not Expressly Requested
+
+Our collaboration is very important, and for us to collaborate effectively, I need to be able to see and understand all changes. The larger and more extensive a change is, the harder it is for us to collaborate. It can be tempting to change/improve code you see within a function or module while we are refactoring or reorganizing near it. However, you MUST not make any changes that are not EXPRESSLY included in our planning, as I may not understand what you've done. So, whenever we refactor and restructure large chunks of code, we should mostly copy/paste the existing code and only make such minimal changes as are required for the refactor to work as intended.
+
+If you identify an additional weakness or area for improvement in code you read/move/refactor, please raise it with me after you complete the current task - or add it to a persistent to-do list we're sharing - but do not make any extra changes while we work.
+
+### Always Read Before You Write - And After You Write
+
+Every time we write a doc referring to a piece of code, we re-confirm that code actually exists. Every time we invoke a function by name from another module, we re-verify the existence of the function and copy/paste its name and function signature, to ensure we get it right. Overall, we always reference code via direct observation, not via impressionistic and fallible memory, which means we need to carefully review context before making a change.
+
+Further, if we create a new function or module, we always check the rest of the codebase first to make sure that something similar does not already exist, so that we do not create duplicative code that introduces new problems. Then, after our changes, we review what we have done and confirm that it all hangs together.
+
+### The Job Is Not Done Until We've Cleaned Up
+
+If we have moved code, or written new code that replaces existing code, it is essential that we also remember to delete the old stuff, lest the codebase become confusing and unmaintainable. Add this step to all to-do lists. And, please remember to re-read the code at any point of intervention (whether removing or writing), after the change, to make sure you didn't miss anything. When we're almost done, clean up any intermediate artifacts we store in the /WIP folder.
+
+### Don't Try To Do Everything Yourself
+
+We are a team! I have valuable things to contribute as well! So, I don't expect you to reinvent wheels that already exist, and I would prefer that you not do so. Please collect feeback from me when you are unsure about something, and if you are missing a particular piece of data or information, go ahead and ask me so that I can provide if it I can. This will prevent many misunderstandings and avoid much wasted effort.
+
+In particular, I have eyes and can often gather information about context and current state more quickly with my eyes than you can with CLI commands. When you encounter unambiguous/unexpected conditions, please ask me for advice.
+
+### Be Patient: We "Measure Twice, and Cut Once"
+
+You are a very efficient worker and I am grateful for your help doing hard things. So, unless I state otherwise, please assume that we have time to do the job right. Offer me time/risk tradeoffs at key decision points, but generally assume that we don't want to take hacky shortcuts unless there is no other option. We want to be thorough, safe, and to test our results on an ongoing basis.
 
 ## The Plan / Implement / Review Approach
 
@@ -181,22 +211,22 @@ If the guide could have been improved to make planning and implementation easier
 
 A good example of short-and-simple is this:
 
-    ## Quickstart
-
-    Setup your environment and run the project:
-
-    ```bash
-    # Setup your machine. Gives instructions for anything which is missing.
-    make init
-
-    # Install all dependencies/build the code.
-    make install
-
-    # Run in development mode.
-    make dev
-    ```
-
-    That's it. The rest of this guide covers more advanced topics like testing, deployment and monitoring.
+> **Quickstart**
+>
+> Setup your environment and run the project:
+>
+> ```bash
+> # Setup your machine. Gives instructions for anything which is missing.
+> make init
+> 
+> # Install all dependencies/build the code.
+> make install
+> 
+> # Run in development mode.
+> make dev
+> ```
+>
+> That's it. The rest of this guide covers more advanced topics like testing, deployment and monitoring.
 
 Note that we don't need every project to follow this exact structure, but this shows how we prefer short and sweet code examples rather than lots of exposition.
 
@@ -247,7 +277,7 @@ You MUST raise potential technical debt. You SHOULD suggest that technical debt 
 
 ## Project Components
 
-**Front End Code**
+### Front End Code
 
 Be very cautious before creating new styles. Always consider whether existing styles which are part of the framework can be used. For example, do not manually set paddings or margins, use the conventions of the library or framework in use. For example, in MUI we use `m` or `p` values:
 
@@ -259,18 +289,18 @@ Be very cautious before creating new styles. Always consider whether existing st
 
 Also prefer `rem` to values like `px`.
 
-**Infrastructure**
+### Infrastructure
 
 Always ensure you specify a profile (e.g. `--profile <projectname>`) when running AWS commands. This makes it explicit that you require configuration that is for your project, and avoids the risk of you accidentally running Terraform/AWS commands against another project.
 
-## Language Specific Guides
+## Language-Specific Guides
 
 - [Makefiles](./guides/make.md)
 - [Python](./guides/python.md)
 - [Go](./guides/go.md)
 - [Shell Scripts](./guides/shell-scripts.md)
 
-## Pattern Specific Guides
+## Pattern-Specific Guides
 
 - [Configuration](./guides/configuration.md): configuration patterns for applications
 - [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
@@ -280,7 +310,6 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 - [Pull Requests](./guides/pull-requests.md): guidelines for writing concise, focused pull request descriptions
 - [Open Source](./guides/open-source.md): best practices for open source projects, encouraging contributions and ease of use
 
-## Platform Specific Guides
+## Platform-Specific Guides
 
 - [PostgreSQL](./guides/postgresql.md)
-
