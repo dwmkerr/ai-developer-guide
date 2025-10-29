@@ -27,7 +27,7 @@ We SHOULD put a comment after each requirement briefly stating what it is for - 
 
 **MCP Tools**
 
-For MCP servers, tool docstrings require detailed descriptions since AI agents use them for tool selection. See the [MCP Servers guide](mcp-servers.md) for specific patterns.
+For MCP servers, tool docstrings require detailed descriptions since AI agents use them for tool selection. See the [MCP Servers guide](../patterns/mcp-servers.md) for specific patterns.
 
 **Exception Handling**
 
