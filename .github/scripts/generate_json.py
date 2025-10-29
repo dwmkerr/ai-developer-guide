@@ -229,9 +229,9 @@ def create_index_html(output_dir, generated_guides, project_dir):
     
     # Generate table rows for the sidebar guides
     sidebar_table_rows = ""
-    
-    # Define the order of guide types
-    guide_type_order = ["language", "pattern", "platform", "other"]
+
+    # Define the order of guide types (match directory names)
+    guide_type_order = ["languages", "patterns", "platforms", "others"]
     
     # Add all specialized guides to the sidebar table in the specified order
     for guide_type in guide_type_order:
