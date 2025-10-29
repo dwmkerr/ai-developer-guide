@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.10](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.19...v0.1.10) (2025-10-29)
+
+
+### Bug Fixes
+
+* update form-data to 4.0.4 to fix CVE-2025-7783 ([37805bf](https://github.com/dwmkerr/ai-developer-guide/commit/37805bf6effb0e19a0eeedce72cb1242cdc6f0d7))
+
+
+### Miscellaneous Chores
+
+* release 0.1.10 ([0762e89](https://github.com/dwmkerr/ai-developer-guide/commit/0762e897da9aaa2b7ed8fa1507c83357afb6adef))
+
 ## [0.1.19](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.18...v0.1.19) (2025-10-09)
 
 
