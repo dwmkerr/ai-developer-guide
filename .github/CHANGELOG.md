@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.1.20](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.10...v0.1.20) (2025-10-29)
+
+
+### Features
+
+* add Docker support with HTTP/SSE transport ([#50](https://github.com/dwmkerr/ai-developer-guide/issues/50)) ([83bf6f9](https://github.com/dwmkerr/ai-developer-guide/commit/83bf6f941268906dedc8c366da2e8787a21c9edd))
+* add Helm chart for Kubernetes deployment ([#52](https://github.com/dwmkerr/ai-developer-guide/issues/52)) ([45fe8c1](https://github.com/dwmkerr/ai-developer-guide/commit/45fe8c1bcfb018511eee5ed59c55a7ec33eacb0c))
+* add kubernetes development guide and cleanup docs ([#37](https://github.com/dwmkerr/ai-developer-guide/issues/37)) ([0618fb3](https://github.com/dwmkerr/ai-developer-guide/commit/0618fb36cf78794ca536f7a1ee0c0ac5d0a1ae2b))
+* add MCP servers guide ([#44](https://github.com/dwmkerr/ai-developer-guide/issues/44)) ([5c73af0](https://github.com/dwmkerr/ai-developer-guide/commit/5c73af008a50d5d971e18f57f52bb27bd42070d0))
+* **claude:** claude slash commands and docs ([#56](https://github.com/dwmkerr/ai-developer-guide/issues/56)) ([ab120e8](https://github.com/dwmkerr/ai-developer-guide/commit/ab120e89ad1d2abad292f92902d6f58a4e40e156))
+* **docs:** add Claude Code setup instructions ([#39](https://github.com/dwmkerr/ai-developer-guide/issues/39)) ([6c7c1fc](https://github.com/dwmkerr/ai-developer-guide/commit/6c7c1fce69d9af3e890f9cf9a2d4c916dc35d46f))
+* **docs:** move contributors.md to docs directory ([fcdd0e5](https://github.com/dwmkerr/ai-developer-guide/commit/fcdd0e56bb614f9fbba02e273f13771a68189ee4))
+
+
+### Bug Fixes
+
+* build multi-platform Docker images for AMD64 and ARM64 ([4ed036f](https://github.com/dwmkerr/ai-developer-guide/commit/4ed036fec6ea8e8ce6f46f299d1eaa3777ef53b6))
+* ignore allcontributors.org link check failures ([ba300b3](https://github.com/dwmkerr/ai-developer-guide/commit/ba300b379d980764b7d655c01eaf928053481487))
+* remove duplicate intro paragraph in make guide ([#48](https://github.com/dwmkerr/ai-developer-guide/issues/48)) ([9603b67](https://github.com/dwmkerr/ai-developer-guide/commit/9603b6720b77638e88ff521f74492105a03ef254))
+* remove path from MCPServer serviceRef - Ark appends /mcp automatically ([659733c](https://github.com/dwmkerr/ai-developer-guide/commit/659733c0b4a23e7d0aa445856106410e59e25d71))
+* update form-data to 4.0.4 to fix CVE-2025-7783 ([37805bf](https://github.com/dwmkerr/ai-developer-guide/commit/37805bf6effb0e19a0eeedce72cb1242cdc6f0d7))
+
+
+### Miscellaneous Chores
+
+* release 0.1.10 ([0762e89](https://github.com/dwmkerr/ai-developer-guide/commit/0762e897da9aaa2b7ed8fa1507c83357afb6adef))
+* release 0.1.20 ([ad90ac9](https://github.com/dwmkerr/ai-developer-guide/commit/ad90ac96462026037a71e973843263614cbc33d5))
+
 ## [0.1.10](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.19...v0.1.10) (2025-10-29)
 
 

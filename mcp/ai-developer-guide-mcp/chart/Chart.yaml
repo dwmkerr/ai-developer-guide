@@ -2,8 +2,8 @@ apiVersion: v2
 name: ai-developer-guide-mcp
 description: A Helm chart for AI Developer Guide MCP Server
 type: application
-version: 0.1.10
-appVersion: 0.1.10
+version: 0.1.20
+appVersion: 0.1.20
 keywords:
   - mcp
   - ai
