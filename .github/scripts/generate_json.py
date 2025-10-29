@@ -58,25 +58,12 @@ def extract_references(content, base_url="api/guides"):
     return references
 
 def infer_guide_type(path):
-    """Infer the type of guide from its path."""
-    if 'python' in path.lower():
-        return "language"
-    elif 'shell' in path.lower():
-        return "language"
-    elif 'make' in path.lower():
-        return "pattern"
-    elif 'cicd' in path.lower() or 'ci-cd' in path.lower():
-        return "pattern"
-    elif 'cli' in path.lower():
-        return "pattern"
-    elif 'documentation' in path.lower():
-        return "pattern"
-    elif 'open-source' in path.lower():
-        return "pattern"
-    elif 'postgresql' in path.lower() or 'sql' in path.lower():
-        return "platform"
-    else:
-        return "other"
+    """Infer the type of guide from its directory path."""
+    # Extract subdirectory from path like guides/languages/python.md -> "languages"
+    match = re.search(r'guides/([^/]+)/', path)
+    if match:
+        return match.group(1)
+    return "others"
 
 def process_guide_markdown(file_path):
     """Read and process a guide markdown file."""
@@ -118,11 +105,6 @@ def create_guide_json(readme_path, output_dir):
     os.makedirs(api_dir, exist_ok=True)
     os.makedirs(api_guides_dir, exist_ok=True)
     
-    # Create subdirectories for different guide types
-    guide_types = ["languages", "patterns", "platforms", "other"]
-    for guide_type in guide_types:
-        os.makedirs(os.path.join(api_guides_dir, guide_type), exist_ok=True)
-    
     # Process the main README.md
     try:
         with open(readme_path, 'r', encoding='utf-8') as f:
@@ -149,24 +131,28 @@ def create_guide_json(readme_path, output_dir):
     # Collect specific guide files
     guide_files = []
     generated_guides = []
-    
-    # Find all markdown files in the guides directory
+
+    # Find all markdown files in the guides directory recursively
     if os.path.exists(guides_dir):
-        guide_files = [os.path.join(guides_dir, f) for f in os.listdir(guides_dir) 
-                      if f.endswith('.md') and os.path.isfile(os.path.join(guides_dir, f))]
+        for root, dirs, files in os.walk(guides_dir):
+            for f in files:
+                if f.endswith('.md'):
+                    guide_files.append(os.path.join(root, f))
     
     # Process each guide file
     for guide_file in guide_files:
         filename = os.path.basename(guide_file)
         guide_data = process_guide_markdown(guide_file)
-        
+
         if guide_data:
             # Determine the guide type and output path
             guide_type = infer_guide_type(guide_file)
             output_filename = filename.replace('.md', '.json')
-            output_subdir = f"{guide_type}s"  # pluralize
-            output_path = os.path.join(api_guides_dir, output_subdir, output_filename)
-            
+            output_path = os.path.join(api_guides_dir, guide_type, output_filename)
+
+            # Get relative path from guides_dir for source URL
+            relative_guide_path = os.path.relpath(guide_file, project_dir)
+
             # Create guide JSON structure
             specific_guide = {
                 "metadata": {
@@ -174,11 +160,11 @@ def create_guide_json(readme_path, output_dir):
                     "type": guide_type,
                     "version": read_version(project_dir),
                     "lastUpdated": datetime.now().strftime("%Y-%m-%d"),
-                    "source": f"https://github.com/dwmkerr/ai-developer-guide/guides/{filename}"
+                    "source": f"https://github.com/dwmkerr/ai-developer-guide/{relative_guide_path}"
                 },
                 "content": guide_data["content"]
             }
-            
+
             # Write the guide JSON file
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, 'w', encoding='utf-8') as f:
@@ -188,7 +174,7 @@ def create_guide_json(readme_path, output_dir):
                 generated_guides.append({
                     "name": guide_data["title"],
                     "type": guide_type,
-                    "path": f"api/guides/{output_subdir}/{output_filename}"  # No leading slash for local compatibility
+                    "path": f"api/guides/{guide_type}/{output_filename}"
                 })
     
     # Create the main guide.json structure

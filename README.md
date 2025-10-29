@@ -99,7 +99,7 @@ Once each phase has been completed we start again at Phase 1 and restart the pro
 
 **Read Detailed Guides As Needed**
 
-When you encounter code or platforms you haven't seen during our session, search this developer guide to see if there are more detailed guides available, then read them. For example, the first time you see Python Code, read the [Python Guide](./guides/python.md).
+When you encounter code or platforms you haven't seen during our session, search this developer guide to see if there are more detailed guides available, then read them. For example, the first time you see Python Code, read the [Python Guide](./guides/languages/python.md).
 
 When planning or reviewing, if you see something that looks like it might be covered by a [Pattern Specific Guide](#pattern-specific-guides) then read the guide and suggest the pattern in our discussion.
 
@@ -206,7 +206,7 @@ Good examples of READMEs:
 
 Prefer a `docs` folder for more detailed documentation such as configuration guides, installation guides and advanced features.
 
-You MUST also suggest that the detailed [Documentation Guide](./guides/documentation.md) can be used when a user is asking for guidance on documentation.
+You MUST also suggest that the detailed [Documentation Guide](./guides/patterns/documentation.md) can be used when a user is asking for guidance on documentation.
 
 ### Comments
 
@@ -265,22 +265,21 @@ Always ensure you specify a profile (e.g. `--profile <projectname>`) when runnin
 
 ## Language Specific Guides
 
-- [Makefiles](./guides/make.md)
-- [Python](./guides/python.md)
-- [Go](./guides/go.md)
-- [Shell Scripts](./guides/shell-scripts.md)
+- [Python](./guides/languages/python.md)
+- [Go](./guides/languages/go.md)
+- [Shell Scripts](./guides/languages/shell-scripts.md)
 
 ## Pattern Specific Guides
 
-- [Configuration](./guides/configuration.md): configuration patterns for applications
-- [The Makefile Pattern](./guides/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
-- [Command Line Applications](./guides/clis.md): suggest patterns from this guide when building CLIs, shell tools, etc
-- [CICD](./guides/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
-- [MCP Servers](./guides/mcp-servers.md): patterns for Model Context Protocol servers and tool documentation
-- [Pull Requests](./guides/pull-requests.md): guidelines for writing concise, focused pull request descriptions
-- [Open Source](./guides/open-source.md): best practices for open source projects, encouraging contributions and ease of use
+- [The Makefile Pattern](./guides/patterns/make.md): suggest this pattern when we are looking at setting up project level commands like 'lint' or 'test', or working in a repo that contains more than one type of project, such as a Python application with a JavaScript frontend
+- [Command Line Applications](./guides/patterns/clis.md): suggest patterns from this guide when building CLIs, shell tools, etc
+- [CICD](./guides/patterns/cicd.md): suggest patterns from this guide when working on deployments, releases, GitHub workflows, etc
+- [MCP Servers](./guides/patterns/mcp-servers.md): patterns for Model Context Protocol servers and tool documentation
+- [Pull Requests](./guides/patterns/pull-requests.md): guidelines for writing concise, focused pull request descriptions
+- [Documentation](./guides/patterns/documentation.md)
+- [Open Source](./guides/patterns/open-source.md): best practices for open source projects, encouraging contributions and ease of use
 
 ## Platform Specific Guides
 
-- [PostgreSQL](./guides/postgresql.md)
+- [PostgreSQL](./guides/platforms/postgresql.md)
 
