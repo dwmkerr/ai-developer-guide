@@ -24,5 +24,6 @@ The `generate_json.py` script uses directory structure to determine guide catego
 
 Before committing or pushing:
 - Run `make site-build` to regenerate JSON API files
+- Check markdown links: `npx markdown-link-check --config .github/markdown-link-check-config.json README.md`
 - Test changes locally
 - Wait for explicit user approval
