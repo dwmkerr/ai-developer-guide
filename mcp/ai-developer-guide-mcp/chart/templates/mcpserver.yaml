@@ -11,6 +11,7 @@ spec:
       serviceRef:
         name: {{ include "ai-developer-guide-mcp.fullname" . }}
         port: http
+        path: /mcp
   transport: http
   {{- if .Values.mcpServer.description }}
   description: {{ .Values.mcpServer.description | quote }}
