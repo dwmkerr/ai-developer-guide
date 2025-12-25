@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.21](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.20...v0.1.21) (2025-12-25)
+
+
+### Bug Fixes
+
+* add MCP server path for Ark v0.1.49 compatibility ([#64](https://github.com/dwmkerr/ai-developer-guide/issues/64)) ([b199594](https://github.com/dwmkerr/ai-developer-guide/commit/b19959456c899b529de3ebabed7e551e03e307a5))
+
 ## [0.1.20](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.10...v0.1.20) (2025-10-29)
 
 
