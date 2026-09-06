@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.21...v0.1.22) (2026-09-06)
+
+
+### Features
+
+* add Google Analytics (GA4 G-WFTE4NBDQ1) ([#66](https://github.com/dwmkerr/ai-developer-guide/issues/66)) ([ea41537](https://github.com/dwmkerr/ai-developer-guide/commit/ea41537ecac59b3147662895df800abc04a9d02e))
+
 ## [0.1.21](https://github.com/dwmkerr/ai-developer-guide/compare/v0.1.20...v0.1.21) (2025-12-25)
 
 
