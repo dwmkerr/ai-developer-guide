@@ -8,6 +8,7 @@
     <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href="https://github.com/dwmkerr/ai-developer-guide/blob/main/docs/contributors.md"><img src="https://img.shields.io/github/all-contributors/dwmkerr/ai-developer-guide?color=ee8449&style=flat-square" alt="All Contributors" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+    <a href="https://github.com/sponsors/dwmkerr?frequency=one-time"><img src="https://img.shields.io/badge/thanks-buy%20me%20a%20coffee-ea4aaa?logo=githubsponsors&logoColor=white" alt="Buy me a coffee"></a>
   </p>
   <p align="center">
     <a href="#quickstart">Quickstart</a> |
